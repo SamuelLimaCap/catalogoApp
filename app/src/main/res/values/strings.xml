@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">catalogoApp</string>
+    <string name="export_string">Exportar</string>
+    <string name="home_string">Home</string>
+    <string name="add_food">food</string>
+    <string name="add_category">Category</string>
+    <string name="add_product_button">Add product</string>
+    <string name="product_name_hint">product name</string>
+    <string name="product_price_hint">price</string>
+    <string name="add_category_button">Add category</string>
+    <string name="category_name_hint">Category name</string>
+
+    <string-array name="spinner_group_options">
+        <item>Unit</item>
+        <item>Kg</item>
+    </string-array>
+
+    <string name="title_home">Home</string>
+    <string name="title_export">Export</string>
+    <string name="title_add_category">Add category</string>
+    <string name="title_add_product">Add product</string>
+</resources>
