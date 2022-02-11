@@ -17,6 +17,6 @@ data class ProductEntity(
     val name: String,
     val price: Float,
     val categoryId: Long,
-    val imageLocation: String,
+    val imageName: String,
     val unit: String
 )

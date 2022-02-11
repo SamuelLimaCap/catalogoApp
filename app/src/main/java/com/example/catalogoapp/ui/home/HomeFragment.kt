@@ -8,13 +8,11 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.catalogoapp.R
 import com.example.catalogoapp.databinding.HomeFragmentBinding
 import com.example.catalogoapp.ui.adapters.ProductListAdapter
-import com.example.catalogoapp.ui.add.AddCategoryActivity
-import com.example.catalogoapp.ui.add.AddProductActivity
+import com.example.catalogoapp.ui.dbTransaction.DbTransactionActivity
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
@@ -30,7 +28,6 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         init()
         setActionBar(R.string.title_home)
         setupRecyclerView()
@@ -65,10 +62,19 @@ class HomeFragment : Fragment() {
         }
 
         binding.fabAddFood.setOnClickListener {
-            startActivity(Intent(this.context, AddProductActivity::class.java ))
+            //TODO start activity with intent and extras
+            val intent = Intent(this.context, DbTransactionActivity::class.java)
+            intent.putExtra("type","add")
+            intent.putExtra("entity", "product")
+
+            startActivity(intent)
         }
         binding.fabAddCategory.setOnClickListener {
-            startActivity(Intent(this.context, AddCategoryActivity::class.java ))
+            val intent = Intent(this.context, DbTransactionActivity::class.java)
+            intent.putExtra("type","add")
+            intent.putExtra("entity", "category")
+
+            startActivity(intent)
         }
     }
 

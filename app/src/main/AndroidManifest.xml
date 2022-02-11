@@ -10,22 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CatalogoApp">
         <activity
+            android:name=".ui.dbTransaction.DbTransactionActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.add.AddCategoryActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.catalogoapp.MainActivity" />
-
+                android:value="com.example.catalogoapp.ui.MainActivity" />
         </activity>
         <activity
             android:name=".ui.add.AddProductActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.catalogoapp.MainActivity" />
+                android:value="com.example.catalogoapp.ui.MainActivity" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

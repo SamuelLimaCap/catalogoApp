@@ -1,7 +1,10 @@
 package com.example.catalogoapp.ui.home
 
 import androidx.lifecycle.ViewModel
+import com.example.catalogoapp.repository.CatalogoRepository
 
-class HomeViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class HomeViewModel(
+    val repository: CatalogoRepository
+): ViewModel() {
+
 }
