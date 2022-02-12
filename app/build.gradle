@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id "kotlin-kapt"
+    id "androidx.navigation.safeargs.kotlin"
 }
 
 android {
@@ -26,6 +27,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas".toString())
+            }
+        }
+
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -45,6 +52,7 @@ dependencies {
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.0'
+
 
     // Room components
     def room_version = "2.4.1"

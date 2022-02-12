@@ -20,10 +20,32 @@
     <fragment
         android:id="@+id/addProductFragment"
         android:name="com.example.catalogoapp.ui.dbTransaction.fragments.AddProductFragment"
-        android:label="AddProductFragment" />
+        android:label="AddProductFragment" >
+        <action
+            android:id="@+id/action_addProductFragment_to_transactionFragment"
+            app:destination="@id/transactionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addCategoryFragment"
         android:name="com.example.catalogoapp.ui.dbTransaction.fragments.AddCategoryFragment"
-        android:label="AddCategoryFragment" />
+        android:label="AddCategoryFragment" >
+        <action
+            android:id="@+id/action_addCategoryFragment_to_transactionFragment"
+            app:destination="@id/transactionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/transactionFragment"
+        android:name="com.example.catalogoapp.ui.dbTransaction.fragments.TransactionFragment"
+        android:label="fragment_transaction"
+        app:argType="string"
+        android:defaultValue=""
+        tools:layout="@layout/fragment_transaction" >
+        <argument
+            android:name="isSucess"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_transactionFragment_pop"
+            app:popUpToInclusive="false" />
+    </fragment>
 
 </navigation>

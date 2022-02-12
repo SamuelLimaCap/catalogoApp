@@ -26,9 +26,6 @@ class MainActivity : AppCompatActivity() {
         setupNavBottomController()
     }
 
-
-
-
     private fun initVariables() {
 
         val viewModelFactory = MainVMProviderFactory(CatalogoRepository(AppDatabase(this)))

@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.catalogoapp.data.db.dao.ProductDao
+import com.example.catalogoapp.data.db.dao.CatalogoDao
+
 
 @Database(
     entities = [ProductEntity::class, CategoryEntity::class],
@@ -12,7 +13,8 @@ import com.example.catalogoapp.data.db.dao.ProductDao
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun getProductDao() : ProductDao
+    abstract fun getCatalogoDao() : CatalogoDao
+
 
     companion object {
         @Volatile

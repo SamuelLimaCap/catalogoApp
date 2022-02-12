@@ -20,7 +20,6 @@ class DbTransactionActivity : AppCompatActivity() {
         binding = ActivityDbTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val viewModelFactory =
             DbTransactionVMProviderFactory(CatalogoRepository(AppDatabase(this)))
         viewModel =

@@ -62,7 +62,6 @@ class HomeFragment : Fragment() {
         }
 
         binding.fabAddFood.setOnClickListener {
-            //TODO start activity with intent and extras
             val intent = Intent(this.context, DbTransactionActivity::class.java)
             intent.putExtra("type","add")
             intent.putExtra("entity", "product")

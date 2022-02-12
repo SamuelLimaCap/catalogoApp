@@ -1,6 +1,5 @@
 package com.example.catalogoapp.data.db
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
@@ -8,15 +7,15 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "product",
     foreignKeys = [ForeignKey(entity = CategoryEntity::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("categoryId"),
+        parentColumns = arrayOf("category"),
+        childColumns = arrayOf("categoryName"),
     )]
 )
 data class ProductEntity(
-    @PrimaryKey val id: Long,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val name: String,
     val price: Float,
-    val categoryId: Long,
+    val categoryName: String,
     val imageName: String,
     val unit: String
 )
