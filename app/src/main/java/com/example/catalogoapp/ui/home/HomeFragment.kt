@@ -8,9 +8,13 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.catalogoapp.R
+import com.example.catalogoapp.data.db.AppDatabase
 import com.example.catalogoapp.databinding.HomeFragmentBinding
+import com.example.catalogoapp.repository.CatalogoRepository
 import com.example.catalogoapp.ui.adapters.ProductListAdapter
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionActivity
 
@@ -28,10 +32,16 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
+        val homeVMFactory = HomeVMFactory(CatalogoRepository(AppDatabase(requireContext())))
+        viewModel = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
         init()
         setActionBar(R.string.title_home)
         setupRecyclerView()
         setupFABs()
+
+        viewModel.listProducts.observe(viewLifecycleOwner) {
+            productListAdapter.submitList(it)
+        }
         return binding.root
     }
 

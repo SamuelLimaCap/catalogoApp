@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.catalogoapp.R
+import com.example.catalogoapp.data.db.ProductEntity
 import com.example.catalogoapp.databinding.ProductItemBinding
 import com.example.catalogoapp.model.Product
+import com.example.catalogoapp.utils.FilesUtil
 
 class ProductListAdapter : RecyclerView.Adapter<ProductListAdapter.ListViewHolder>() {
 
-    private val list: List<Product> = listOf(
-        Product(null, "oi",2.45F,"unidade", "teste"),
-        Product(null, "oi",2.55F,"unidade", "teste"))
+    private var list: List<ProductEntity> = listOf()
 
     inner class ListViewHolder(var binding: ProductItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -25,12 +25,25 @@ class ProductListAdapter : RecyclerView.Adapter<ProductListAdapter.ListViewHolde
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.binding.imageItem.setImageResource(R.drawable.image_item_preview)
-        Log.e("Adapter", "entrou")
-        holder.binding.nameItem.text = list[position].name
-        val price = list[position].price.toString() + "/ " + list[position].unit
-        holder.binding.priceItem.text = price
+        val productEntity = list[position]
+        holder.binding.apply {
+            nameItem.text = productEntity.name
+            val price = productEntity.price.toString() + "/ " + productEntity.unit
+            priceItem.text = price
+        }
+        if (productEntity.imageName.isNotEmpty()) {
+            val context = holder.binding.imageItem.context
+            val bitmapImage = FilesUtil.getImageBitmapFromCatalogoImages(productEntity.imageName, context)
+            holder.binding.imageItem.setImageBitmap(bitmapImage)
+        } else {
+            holder.binding.imageItem.setImageResource(R.drawable.image_item_preview)
+        }
 
+    }
+
+    fun submitList(list: List<ProductEntity>) {
+        this.list = list
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = list.size

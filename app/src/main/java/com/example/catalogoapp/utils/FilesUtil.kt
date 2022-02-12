@@ -30,6 +30,17 @@ class FilesUtil {
                 }?.toList() ?: listOf()
         }
 
+        fun getImageBitmapFromCatalogoImages(imageName: String, applicationContext: Context): Bitmap {
+            val cw = ContextWrapper(applicationContext)
+            val directory = cw.getDir("catalogoImages", Context.MODE_PRIVATE)
+            val filePath = File(directory, "$imageName.jpg")
+            val bytes = filePath.readBytes()
+            return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+
+
+        }
+
+
         fun savePhotoToInternalStorage(
             applicationContext: Context,
             fileName: String,

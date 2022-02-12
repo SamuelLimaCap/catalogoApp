@@ -16,7 +16,7 @@ interface CatalogoDao {
     @Query("SELECT * FROM product")
     suspend fun getAllProducts() : List<ProductEntity>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCategory(category: CategoryEntity)
 
     @Query("SELECT * FROM category")
