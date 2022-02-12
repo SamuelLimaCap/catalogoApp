@@ -1,6 +1,7 @@
 package com.example.catalogoapp.ui.dbTransaction.fragments
 
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,37 +32,78 @@ class AddProductFragment : Fragment() {
 
         loadCategoriesSpinner()
         loadOptionsSpinner()
+        setOnClickToAddImage()
+        setOnClickAddButtonAndNavigateToTransactionFragment()
 
+        return binding.root
+
+    }
+
+    private fun loadOptionsSpinner() {
+        ArrayAdapter.createFromResource(
+            this.requireContext(),
+            R.array.spinner_group_options,
+            android.R.layout.simple_spinner_dropdown_item
+        ).also { arrayAdapter ->
+            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+            binding.groupOptionsSpinner.adapter = arrayAdapter
+        }
+    }
+
+    private fun loadCategoriesSpinner() {
+        lifecycleScope.launch {
+            val spinnerItems = viewModel.listAllCategories().map { it -> it.category }.toList()
+                ?: emptyList<String>()
+            val arrayAdapter = ArrayAdapter(
+                requireActivity().applicationContext,
+                android.R.layout.simple_spinner_dropdown_item,
+                spinnerItems
+            )
+            binding.groupCategoriesSpinner.adapter = arrayAdapter
+        }
+
+    }
+
+    private fun setOnClickToAddImage() {
         binding.imagePreview.setOnClickListener {
             takePhoto.launch("image/*")
         }
+    }
+    private val takePhoto = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        binding.imagePreview.setImageURI(it)
+    }
+
+    private fun setOnClickAddButtonAndNavigateToTransactionFragment() {
         binding.addProductButton.setOnClickListener {
             val isInputsValid = checkInputContent()
-
+            var isSuccess: Boolean = false
             if (isInputsValid) {
-                val product = getProductFromInputs()
-                FilesUtil.savePhotoToInternalStorage(
-                    requireContext(),
-                    product.imageName,
-                    (binding.imagePreview.drawable as BitmapDrawable).bitmap
-                )
-                GlobalScope.launch {
-                    viewModel.addProductToDB(product)
-                }
-                val action =
-                    AddProductFragmentDirections.actionAddProductFragmentToTransactionFragment(
-                        true
-                    )
-                it.findNavController().navigate(action)
-            } else {
-                val action = AddProductFragmentDirections.actionAddProductFragmentToTransactionFragment(
-                    false
-                )
-                it.findNavController().navigate(action)
+                isSuccess = true
+                addProductToBD()
             }
+            navigateToTransactionFragment(isSuccess, it)
         }
-        return binding.root
+    }
 
+    private fun addProductToBD() {
+        val product = getProductFromInputs()
+        FilesUtil.savePhotoToInternalStorage(
+            requireContext(),
+            product.imageName,
+            getBitmapFromDrawable(binding.imagePreview.drawable)
+        )
+        GlobalScope.launch { viewModel.addProductToDB(product) }
+    }
+
+    private fun getBitmapFromDrawable(drawable: Drawable) = (drawable as BitmapDrawable).bitmap
+
+    private fun navigateToTransactionFragment(isSuccess: Boolean, view: View) {
+        val action =
+            AddProductFragmentDirections.actionAddProductFragmentToTransactionFragment(
+                isSuccess
+            )
+        view.findNavController().navigate(action)
     }
 
     private fun checkInputContent(): Boolean {
@@ -88,36 +130,6 @@ class AddProductFragment : Fragment() {
             imageName,
             optionSelected
         )
-    }
-    private val takePhoto = registerForActivityResult(ActivityResultContracts.GetContent()) {
-        binding.imagePreview.setImageURI(it)
-    }
-
-
-    private fun loadOptionsSpinner() {
-        val applyAdapterOnSpinner = ArrayAdapter.createFromResource(
-            this.requireContext(),
-            R.array.spinner_group_options,
-            android.R.layout.simple_spinner_dropdown_item
-        ).also { arrayAdapter ->
-            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-            binding.groupOptionsSpinner.adapter = arrayAdapter
-        }
-    }
-
-    private fun loadCategoriesSpinner() {
-        lifecycleScope.launch {
-            val spinnerItems = viewModel.listAllCategories().map { it -> it.category }.toList()
-                ?: emptyList<String>()
-            val arrayAdapter = ArrayAdapter(
-                requireActivity().applicationContext,
-                android.R.layout.simple_spinner_dropdown_item,
-                spinnerItems
-            )
-            binding.groupCategoriesSpinner.adapter = arrayAdapter
-        }
-
     }
 
 

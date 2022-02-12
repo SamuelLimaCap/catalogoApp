@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import com.example.catalogoapp.data.db.CategoryEntity
 import com.example.catalogoapp.databinding.FragmentAddCategoryBinding
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
@@ -24,10 +25,12 @@ class AddCategoryFragment : Fragment() {
 
         binding.addCategoryButton.setOnClickListener {
             val categoryName = binding.categoryNameInput.text.toString()
+            var isSuccess = false
             if (isValidCategoryName(categoryName)) {
                 addCategory(categoryName)
-
+                isSuccess = true
             }
+            navigateToTransactionFragment(isSuccess, it)
         }
 
         return binding.root
@@ -35,12 +38,16 @@ class AddCategoryFragment : Fragment() {
 
     private fun addCategory(categoryName: String) {
         GlobalScope.launch {
-            val result = viewModel.addCategoryToDB(CategoryEntity(category = categoryName))
-
-
+            viewModel.addCategoryToDB(CategoryEntity(category = categoryName))
         }
+    }
 
-
+    private fun navigateToTransactionFragment(isSuccess: Boolean, view: View) {
+        val action =
+            AddProductFragmentDirections.actionAddProductFragmentToTransactionFragment(
+                isSuccess
+            )
+        view.findNavController().navigate(action)
     }
 
     private fun isValidCategoryName(name: String): Boolean {
