@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable/food_icon.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/green_button_border.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.202" />
+        <entry key="app/src/main/res/drawable/red_button_border.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_add_category.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.30739632321504917" />
         <entry key="app/src/main/res/layout/activity_db_transaction.xml" value="0.26336041043180847" />
@@ -16,6 +17,7 @@
         <entry key="app/src/main/res/layout/fragment_add_category.xml" value="0.2291577597263788" />
         <entry key="app/src/main/res/layout/fragment_add_product.xml" value="0.26336041043180847" />
         <entry key="app/src/main/res/layout/fragment_empty.xml" value="0.30739632321504917" />
+        <entry key="app/src/main/res/layout/fragment_result_transaction.xml" value="0.30739632321504917" />
         <entry key="app/src/main/res/layout/fragment_transaction.xml" value="0.221889696451475" />
         <entry key="app/src/main/res/layout/home_fragment.xml" value="0.22" />
         <entry key="app/src/main/res/layout/product_item.xml" value="0.18" />

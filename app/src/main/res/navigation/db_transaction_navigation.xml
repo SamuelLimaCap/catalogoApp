@@ -35,11 +35,11 @@
     </fragment>
     <fragment
         android:id="@+id/transactionFragment"
-        android:name="com.example.catalogoapp.ui.dbTransaction.fragments.TransactionFragment"
+        android:name="com.example.catalogoapp.ui.dbTransaction.fragments.ResultTransactionFragment"
         android:label="fragment_transaction"
         app:argType="string"
         android:defaultValue=""
-        tools:layout="@layout/fragment_transaction" >
+        tools:layout="@layout/fragment_result_transaction" >
         <argument
             android:name="isSucess"
             app:argType="boolean" />

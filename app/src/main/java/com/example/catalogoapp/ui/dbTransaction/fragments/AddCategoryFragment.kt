@@ -44,7 +44,7 @@ class AddCategoryFragment : Fragment() {
 
     private fun navigateToTransactionFragment(isSuccess: Boolean, view: View) {
         val action =
-            AddProductFragmentDirections.actionAddProductFragmentToTransactionFragment(
+            AddCategoryFragmentDirections.actionAddCategoryFragmentToTransactionFragment(
                 isSuccess
             )
         view.findNavController().navigate(action)

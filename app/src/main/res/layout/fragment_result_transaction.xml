@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dbTransaction.fragments.TransactionFragment">
+    tools:context=".ui.dbTransaction.fragments.ResultTransactionFragment">
 
 
     <TextView
+        android:id="@+id/result_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
@@ -27,6 +28,7 @@
         android:layout_marginHorizontal="50dp"
         android:layout_marginBottom="150dp"
         android:background="@drawable/green_button_border"
+        app:backgroundTint="@color/green"
         android:text="@string/back_button"
         android:textColor="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
