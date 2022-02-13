@@ -1,16 +1,18 @@
 package com.example.catalogoapp.ui.adapters
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.catalogoapp.R
 import com.example.catalogoapp.data.db.ProductEntity
 import com.example.catalogoapp.databinding.ProductItemBinding
-import com.example.catalogoapp.model.Product
+import com.example.catalogoapp.ui.home.dialog.ProductBottomSheetDialog
 import com.example.catalogoapp.utils.FilesUtil
 
-class ProductListAdapter : RecyclerView.Adapter<ProductListAdapter.ListViewHolder>() {
+class ProductListAdapter(val context: Context) : RecyclerView.Adapter<ProductListAdapter.ListViewHolder>() {
 
     private var list: List<ProductEntity> = listOf()
 
@@ -27,6 +29,10 @@ class ProductListAdapter : RecyclerView.Adapter<ProductListAdapter.ListViewHolde
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val productEntity = list[position]
         holder.binding.apply {
+            layoutItem.setOnClickListener {
+                val dialog = ProductBottomSheetDialog(productEntity.id)
+                dialog.show( (context as AppCompatActivity).supportFragmentManager,"edit_dialog_fragment")
+            }
             nameItem.text = productEntity.name
             val price = productEntity.price.toString() + "/ " + productEntity.unit
             priceItem.text = price
@@ -38,7 +44,6 @@ class ProductListAdapter : RecyclerView.Adapter<ProductListAdapter.ListViewHolde
         } else {
             holder.binding.imageItem.setImageResource(R.drawable.image_item_preview)
         }
-
     }
 
     fun submitList(list: List<ProductEntity>) {

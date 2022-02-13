@@ -1,15 +1,15 @@
 package com.example.catalogoapp.ui.dbTransaction
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.example.catalogoapp.R
 import com.example.catalogoapp.data.db.AppDatabase
 import com.example.catalogoapp.databinding.ActivityDbTransactionBinding
 import com.example.catalogoapp.repository.CatalogoRepository
+import com.example.catalogoapp.ui.dbTransaction.fragments.EmptyFragmentDirections
 
 class DbTransactionActivity : AppCompatActivity() {
 
@@ -29,6 +29,7 @@ class DbTransactionActivity : AppCompatActivity() {
 
         val type = intent.extras?.getString("type") ?: ""
         val entity = intent.extras?.getString("entity") ?: ""
+        val id = intent.extras?.getString("id") ?: "-1L"
 
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.db_transaction_host_fragment) as NavHostFragment
@@ -36,8 +37,16 @@ class DbTransactionActivity : AppCompatActivity() {
         when (type) {
             "add" -> {
                 when (entity) {
-                    "product" -> navController.navigate(R.id.action_emptyFragment_to_addProductFragment)
+                    "product" -> navController.navigate(R.id.action_emptyFragment_to_productTransactionFragment)
                     "category" -> navController.navigate(R.id.action_emptyFragment_to_addCategoryFragment)
+                }
+            }
+            "edit" -> {
+                when (entity) {
+                    "product" -> {
+                        Log.e("DbTransactionActivity", "chegou")
+                        EmptyFragmentDirections.actionEmptyFragmentToProductTransactionFragment("edit", id.toLong())
+                    }
                 }
             }
         }

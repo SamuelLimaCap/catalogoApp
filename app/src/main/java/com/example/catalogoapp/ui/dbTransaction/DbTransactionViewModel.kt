@@ -13,10 +13,17 @@ class DbTransactionViewModel(
 ): ViewModel() {
 
     val isTransactionDone: MutableLiveData<Boolean> = MutableLiveData()
+    val gettedProductById: MutableLiveData<ProductEntity> = MutableLiveData()
 
     suspend fun addProductToDB(productEntity: ProductEntity) {
         viewModelScope.launch {
             repository.insertProduct(productEntity)
+        }
+    }
+
+    fun getProductById(productId: Long) {
+        viewModelScope.launch {
+            repository.getProductById(productId)
         }
     }
 

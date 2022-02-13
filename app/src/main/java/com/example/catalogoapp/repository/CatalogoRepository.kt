@@ -14,6 +14,8 @@ class CatalogoRepository(
     suspend fun getAllProducts() =
         db.getCatalogoDao().getAllProducts()
 
+    suspend fun getProductById(productId: Long) = db.getCatalogoDao().getProductById(productId)
+
     suspend fun insertCategory(category: CategoryEntity) =
         db.getCatalogoDao().insertCategory(category)
 

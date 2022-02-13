@@ -21,7 +21,7 @@ import com.example.catalogoapp.ui.dbTransaction.DbTransactionActivity
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: HomeFragmentBinding
-    private val productListAdapter by lazy { ProductListAdapter() }
+    private val productListAdapter by lazy { ProductListAdapter(requireContext()) }
 
     private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(this.context, R.anim.rotate_open_anim) }
     private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(this.context, R.anim.rotate_close_anim) }

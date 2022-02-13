@@ -8,35 +8,81 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.allViews
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.catalogoapp.R
 import com.example.catalogoapp.data.db.ProductEntity
-import com.example.catalogoapp.databinding.FragmentAddProductBinding
+import com.example.catalogoapp.databinding.FragmentFormProductBinding
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
 import com.example.catalogoapp.utils.FilesUtil
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class AddProductFragment : Fragment() {
+class ProductTransactionFragment : Fragment() {
 
-    private lateinit var binding: FragmentAddProductBinding
+    private lateinit var binding: FragmentFormProductBinding
     private val viewModel: DbTransactionViewModel by activityViewModels()
+    private var typeTransaction = arguments?.let { ProductTransactionFragmentArgs.fromBundle(it).typeTransaction } ?: ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAddProductBinding.inflate(inflater, container, false)
+        binding = FragmentFormProductBinding.inflate(inflater, container, false)
 
         loadCategoriesSpinner()
         loadOptionsSpinner()
         setOnClickToAddImage()
         setOnClickAddButtonAndNavigateToTransactionFragment()
 
+        when (typeTransaction) {
+            "edit" -> {
+                val productId = arguments?.let { ProductTransactionFragmentArgs.fromBundle(it).id }
+                    ?: -1L
+                if (productId != -1L) {
+                    getProductContent(productId)
+                }
+            }
+                else -> typeTransaction = "add"
+        }
+
+        viewModel.gettedProductById.observe(viewLifecycleOwner) {
+            showContentToInputs(productEntity = it)
+        }
+
+
         return binding.root
 
+    }
+
+    private fun getProductContent(productId: Long) {
+        viewModel.getProductById(productId)
+    }
+    private fun showContentToInputs(productEntity: ProductEntity) {
+        val numCategories = binding.groupCategoriesSpinner.adapter.count
+        val categoriesList= mutableListOf<String>()
+        for (num in 0 until numCategories) {
+            categoriesList.add(binding.groupCategoriesSpinner.adapter.getItem(num).toString())
+        }
+
+        val numOptions = binding.groupOptionsSpinner.adapter.count
+        val optionsList = mutableListOf<String>()
+        for(num in 0 until numOptions) {
+            optionsList.add(binding.groupOptionsSpinner.adapter.getItem(num).toString())
+        }
+
+        val positionOption = optionsList.indexOf(productEntity.unit)
+        val positionCategory = optionsList.indexOf(productEntity.categoryName)
+        binding.apply {
+            productNameInput.setText(productEntity.name)
+            productPriceInput.setText(productEntity.price.toString())
+            groupCategoriesSpinner.setSelection(positionOption)
+            groupOptionsSpinner.setSelection(positionOption)
+
+        }
     }
 
     private fun loadOptionsSpinner() {
@@ -100,7 +146,7 @@ class AddProductFragment : Fragment() {
 
     private fun navigateToTransactionFragment(isSuccess: Boolean, view: View) {
         val action =
-            AddProductFragmentDirections.actionAddProductFragmentToTransactionFragment(
+            ProductTransactionFragmentDirections.actionAddProductFragmentToTransactionFragment(
                 isSuccess
             )
         view.findNavController().navigate(action)

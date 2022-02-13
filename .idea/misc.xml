@@ -3,16 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.314" />
         <entry key="app/src/main/res/drawable/add_icon.xml" value="0.202" />
+        <entry key="app/src/main/res/drawable/bottom_dialog_bg.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/category_icon.xml" value="0.202" />
+        <entry key="app/src/main/res/drawable/delete_icon.xml" value="0.314" />
+        <entry key="app/src/main/res/drawable/edit_icon.xml" value="0.314" />
         <entry key="app/src/main/res/drawable/food_icon.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/green_button_border.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/red_button_border.xml" value="0.33" />
+        <entry key="app/src/main/res/drawable/take_photo.xml" value="0.2045" />
         <entry key="app/src/main/res/layout/activity_add_category.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_add_product.xml" value="0.30739632321504917" />
         <entry key="app/src/main/res/layout/activity_db_transaction.xml" value="0.26336041043180847" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.264945652173913" />
+        <entry key="app/src/main/res/layout/bottom_sheet_dialog.xml" value="0.30739632321504917" />
         <entry key="app/src/main/res/layout/export_fragment.xml" value="0.18211752786220872" />
         <entry key="app/src/main/res/layout/fragment_add_category.xml" value="0.2291577597263788" />
         <entry key="app/src/main/res/layout/fragment_add_product.xml" value="0.26336041043180847" />

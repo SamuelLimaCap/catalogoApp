@@ -26,4 +26,6 @@
     <string name="categories_text">categories</string>
     <string name="options_text">options</string>
     <string name="failed_transaction">Transaction failed</string>
+    <string name="delete_product_dialog">Delete product</string>
+    <string name="edit_product_dialog">Edit product</string>
 </resources>
