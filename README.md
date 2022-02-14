@@ -15,3 +15,9 @@ Um aplicativo para gerenciamento de produtos
 ![Confirmação de deleção](https://imgur.com/JumZ6UJ.png)
 ![Transação sucedida](https://imgur.com/W1xHnHD.png)
 ![Falha na transação](https://imgur.com/hSd9nAl.png)
+
+## Bibliotecas utilizadas
+- Room
+- Navigation Component
+- Safe args
+- Lifecycle components
