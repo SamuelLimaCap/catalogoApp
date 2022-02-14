@@ -1,8 +1,8 @@
 package com.example.catalogoapp.repository
 
 import com.example.catalogoapp.data.db.AppDatabase
-import com.example.catalogoapp.data.db.CategoryEntity
-import com.example.catalogoapp.data.db.ProductEntity
+import com.example.catalogoapp.data.db.dao.model.CategoryEntity
+import com.example.catalogoapp.data.db.dao.model.ProductEntity
 
 class CatalogoRepository(
     val db: AppDatabase
@@ -24,11 +24,11 @@ class CatalogoRepository(
     suspend fun insertCategory(category: CategoryEntity) =
         db.getCatalogoDao().insertCategory(category)
 
-    suspend fun updateCategory(category: CategoryEntity) =
-        db.getCatalogoDao().updateCategory(category)
+    suspend fun updateCategory(oldCategoryName: String, newCategoryName: String) =
+        db.getCatalogoDao().updateCategory(oldCategoryName, newCategoryName)
 
     suspend fun deleteCategory(category: CategoryEntity) =
-        db.getCatalogoDao().deleteCategory(category)
+        db.getCatalogoDao().deleteCategory(category.category)
     suspend fun getAllCategories() =
         db.getCatalogoDao().getAllCategories()
 

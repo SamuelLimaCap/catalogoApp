@@ -1,13 +1,12 @@
 package com.example.catalogoapp.ui.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.catalogoapp.R
-import com.example.catalogoapp.data.db.ProductEntity
+import com.example.catalogoapp.data.db.dao.model.ProductEntity
 import com.example.catalogoapp.databinding.ProductItemBinding
 import com.example.catalogoapp.ui.home.dialog.ProductBottomSheetDialog
 import com.example.catalogoapp.utils.FilesUtil

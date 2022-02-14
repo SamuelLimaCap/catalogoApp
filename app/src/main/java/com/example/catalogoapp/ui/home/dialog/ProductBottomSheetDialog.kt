@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.catalogoapp.data.db.ProductEntity
+import com.example.catalogoapp.data.db.dao.model.ProductEntity
 import com.example.catalogoapp.databinding.BottomSheetDialogBinding
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionActivity
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ProductBottomSheetDialog(val product: ProductEntity) : BottomSheetDialogFragment() {

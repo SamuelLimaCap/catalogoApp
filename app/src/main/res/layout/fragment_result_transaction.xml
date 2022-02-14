@@ -14,12 +14,23 @@
         android:layout_marginBottom="40dp"
         android:text="@string/successfully_added_transaction"
         android:textColor="@color/green"
-        android:textStyle="bold"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/more_info_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/result_text"
+        tools:text="more info text" />
 
     <Button
         android:id="@+id/back_button"
@@ -28,9 +39,9 @@
         android:layout_marginHorizontal="50dp"
         android:layout_marginBottom="150dp"
         android:background="@drawable/green_button_border"
-        app:backgroundTint="@color/green"
         android:text="@string/back_button"
         android:textColor="@color/green"
+        app:backgroundTint="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

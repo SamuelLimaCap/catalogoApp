@@ -9,6 +9,7 @@
     <string name="product_name_hint">product name</string>
     <string name="product_price_hint">price</string>
     <string name="add_category_button">Add category</string>
+    <string name="edit_category_button">Edit category</string>
     <string name="category_name_hint">Category name</string>
 
     <string-array name="spinner_group_options">
@@ -31,4 +32,8 @@
     <string name="edit_product_dialog">Edit product</string>
     <string name="delete_confirmation_text">Are you sure you want delete:</string>
     <string name="sure_button_text">sure</string>
+    <string name="categories_string">Categories</string>
+
+    <string name="error_category_constraint_transaction">There\'s some product with this category</string>
+    <string name="no_description_transaction" />
 </resources>

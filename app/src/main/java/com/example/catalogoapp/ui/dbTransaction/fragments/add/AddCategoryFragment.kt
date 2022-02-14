@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import com.example.catalogoapp.data.db.CategoryEntity
+import com.example.catalogoapp.R
+import com.example.catalogoapp.data.db.dao.model.CategoryEntity
 import com.example.catalogoapp.databinding.FragmentAddCategoryBinding
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
 import kotlinx.coroutines.GlobalScope
@@ -30,7 +31,7 @@ class AddCategoryFragment : Fragment() {
                 addCategory(categoryName)
                 isSuccess = true
             }
-            navigateToTransactionFragment(isSuccess, it)
+            navigateToTransactionFragment(isSuccess, it )
         }
 
         return binding.root
@@ -45,7 +46,7 @@ class AddCategoryFragment : Fragment() {
     private fun navigateToTransactionFragment(isSuccess: Boolean, view: View) {
         val action =
             AddCategoryFragmentDirections.actionAddCategoryFragmentToTransactionFragment(
-                isSuccess
+                isSuccess, R.string.no_description_transaction
             )
         view.findNavController().navigate(action)
     }

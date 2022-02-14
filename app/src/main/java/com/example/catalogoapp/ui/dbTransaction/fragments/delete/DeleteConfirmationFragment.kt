@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.catalogoapp.R
+import com.example.catalogoapp.data.db.dao.model.CategoryEntity
 import com.example.catalogoapp.databinding.FragmentDeleteConfirmationBinding
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
 import com.example.catalogoapp.ui.dbTransaction.fragments.add.AddProductFragmentDirections
@@ -15,12 +17,12 @@ import com.example.catalogoapp.ui.dbTransaction.fragments.add.AddProductFragment
 class DeleteConfirmationFragment : Fragment() {
 
     private lateinit var binding: FragmentDeleteConfirmationBinding
-    val args: DeleteConfirmationFragmentArgs by navArgs()
+    private val args: DeleteConfirmationFragmentArgs by navArgs()
     private val viewModel: DbTransactionViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDeleteConfirmationBinding.inflate(inflater, container, false)
 
         binding.sureButton.setOnClickListener {
@@ -28,6 +30,10 @@ class DeleteConfirmationFragment : Fragment() {
             when (args.type) {
                 "product" -> {
                     viewModel.deleteProductByIdOnBD(productId = args.id)
+                    isSuccess = true
+                }
+                "category" -> {
+                    viewModel.deleteCategory(CategoryEntity(args.name))
                     isSuccess = true
                 }
             }
@@ -41,8 +47,8 @@ class DeleteConfirmationFragment : Fragment() {
 
     private fun navigateToTransactionFragment(isSuccess: Boolean, view: View) {
         val action =
-            AddProductFragmentDirections.actionAddProductFragmentToTransactionFragment(
-                isSuccess
+            DeleteConfirmationFragmentDirections.actionDeleteConfirmationFragmentToTransactionFragment(
+                isSuccess, R.string.no_description_transaction
             )
         view.findNavController().navigate(action)
     }

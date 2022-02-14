@@ -1,5 +1,7 @@
 package com.example.catalogoapp.ui.dbTransaction.fragments.add
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -13,12 +15,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.catalogoapp.R
-import com.example.catalogoapp.data.db.ProductEntity
+import com.example.catalogoapp.data.db.dao.model.ProductEntity
 import com.example.catalogoapp.databinding.FragmentAddProductBinding
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
 import com.example.catalogoapp.utils.FilesUtil
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.ClassCastException
 
 class AddProductFragment : Fragment() {
 
@@ -95,12 +98,23 @@ class AddProductFragment : Fragment() {
         GlobalScope.launch { viewModel.addProductToDB(product) }
     }
 
-    private fun getBitmapFromDrawable(drawable: Drawable) = (drawable as BitmapDrawable).bitmap
+    private fun getBitmapFromDrawable(drawable: Drawable): Bitmap {
+        try {
+            return (drawable as BitmapDrawable).bitmap
+        } catch (e: ClassCastException) {
+            //Create a bitmap from drawable parsed
+            val bitmap = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(bitmap)
+            drawable.setBounds(0,0,canvas.width, canvas.height)
+            drawable.draw(canvas)
+            return bitmap
+        }
+    }
 
     private fun navigateToTransactionFragment(isSuccess: Boolean, view: View) {
         val action =
             AddProductFragmentDirections.actionAddProductFragmentToTransactionFragment(
-                isSuccess
+                isSuccess, R.string.no_description_transaction
             )
         view.findNavController().navigate(action)
     }

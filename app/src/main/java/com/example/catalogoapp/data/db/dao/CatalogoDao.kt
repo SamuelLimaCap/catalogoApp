@@ -1,8 +1,8 @@
 package com.example.catalogoapp.data.db.dao
 
 import androidx.room.*
-import com.example.catalogoapp.data.db.CategoryEntity
-import com.example.catalogoapp.data.db.ProductEntity
+import com.example.catalogoapp.data.db.dao.model.CategoryEntity
+import com.example.catalogoapp.data.db.dao.model.ProductEntity
 
 @Dao
 interface CatalogoDao {
@@ -29,11 +29,11 @@ interface CatalogoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCategory(category: CategoryEntity)
 
-    @Update
-    suspend fun updateCategory(category: CategoryEntity)
+    @Query("UPDATE category SET category = :newCategoryName WHERE category = :oldCategoryName")
+    suspend fun updateCategory(oldCategoryName: String, newCategoryName: String)
 
-    @Delete
-    suspend fun deleteCategory(category: CategoryEntity)
+    @Query("DELETE FROM category WHERE category = :categoryName")
+    suspend fun deleteCategory(categoryName: String)
 
     @Query("SELECT * FROM category")
     suspend fun getAllCategories() : List<CategoryEntity>

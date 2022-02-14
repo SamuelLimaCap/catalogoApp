@@ -1,7 +1,9 @@
-package com.example.catalogoapp.data.db
+package com.example.catalogoapp.data.db.dao.model
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
+import androidx.room.ForeignKey.NO_ACTION
 import androidx.room.PrimaryKey
 
 @Entity(
@@ -9,6 +11,7 @@ import androidx.room.PrimaryKey
     foreignKeys = [ForeignKey(entity = CategoryEntity::class,
         parentColumns = arrayOf("category"),
         childColumns = arrayOf("categoryName"),
+        onUpdate = CASCADE,
     )]
 )
 data class ProductEntity(

@@ -15,4 +15,9 @@
         android:name="com.example.catalogoapp.ui.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" />
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="com.example.catalogoapp.ui.category.CategoryListFragment"
+        android:label="category_list_fragment"
+        tools:layout="@layout/category_list_fragment" />
 </navigation>

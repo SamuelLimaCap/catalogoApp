@@ -1,10 +1,12 @@
 package com.example.catalogoapp.ui.dbTransaction
 
+import android.database.sqlite.SQLiteConstraintException
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.catalogoapp.data.db.CategoryEntity
-import com.example.catalogoapp.data.db.ProductEntity
+import com.example.catalogoapp.R
+import com.example.catalogoapp.data.db.dao.model.CategoryEntity
+import com.example.catalogoapp.data.db.dao.model.ProductEntity
 import com.example.catalogoapp.repository.CatalogoRepository
 import kotlinx.coroutines.launch
 
@@ -14,6 +16,8 @@ class DbTransactionViewModel(
 
     val isTransactionDone: MutableLiveData<Boolean> = MutableLiveData()
     val gettedProductById: MutableLiveData<ProductEntity> = MutableLiveData()
+
+    val errorTransactionInfo: MutableLiveData<Int> = MutableLiveData()
 
     suspend fun addProductToDB(productEntity: ProductEntity) {
         viewModelScope.launch {
@@ -45,15 +49,19 @@ class DbTransactionViewModel(
         }
     }
 
-    fun updateCategoryToBd(categoryEntity: CategoryEntity) {
+    fun updateCategoryToBD(oldCategoryName: String, newCategoryName: String) {
         viewModelScope.launch {
-            repository.deleteCategory(categoryEntity)
+            repository.updateCategory(oldCategoryName, newCategoryName)
         }
     }
 
     fun deleteCategory(categoryEntity: CategoryEntity) {
         viewModelScope.launch {
-            repository.deleteCategory(categoryEntity)
+            try {
+                repository.deleteCategory(categoryEntity)
+            } catch (e: SQLiteConstraintException) {
+                errorTransactionInfo.postValue(R.string.error_category_constraint_transaction)
+            }
         }
     }
 

@@ -45,6 +45,11 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStop() {
+        super.onStop()
+        viewModel.getListProducts()
+    }
+
     private fun init() {
         isFABbuttonActive = false;
     }

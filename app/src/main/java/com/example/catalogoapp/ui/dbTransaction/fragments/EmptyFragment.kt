@@ -30,7 +30,7 @@ class EmptyFragment : Fragment() {
 
         val type = activity?.intent?.extras?.getString("type") ?: ""
         val entity = activity?.intent?.extras?.getString("entity") ?: ""
-        val id = activity?.intent?.extras?.getString("id") ?: "-1L"
+        val id = activity?.intent?.extras?.getString("id") ?: "-1"
         val name = activity?.intent?.extras?.getString("name") ?: ""
 
 
@@ -48,6 +48,10 @@ class EmptyFragment : Fragment() {
                 when (entity) {
                     "product" -> {
                         val action = EmptyFragmentDirections.actionEmptyFragmentToUpdateProductFragment(id.toLong())
+                        navController.navigate(action)
+                    }
+                    "category" -> {
+                        val action = EmptyFragmentDirections.actionEmptyFragmentToUpdateCategoryFragment(name)
                         navController.navigate(action)
                     }
                 }

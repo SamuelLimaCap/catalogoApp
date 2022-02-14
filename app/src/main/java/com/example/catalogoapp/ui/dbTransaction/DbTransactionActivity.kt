@@ -12,10 +12,13 @@ import com.example.catalogoapp.databinding.ActivityDbTransactionBinding
 import com.example.catalogoapp.repository.CatalogoRepository
 import com.example.catalogoapp.ui.dbTransaction.fragments.EmptyFragmentDirections
 
+//intent arguments are on EmptyFragment
 class DbTransactionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDbTransactionBinding
     private lateinit var viewModel: DbTransactionViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

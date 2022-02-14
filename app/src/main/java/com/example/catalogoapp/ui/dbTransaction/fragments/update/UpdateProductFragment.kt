@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.catalogoapp.R
-import com.example.catalogoapp.data.db.ProductEntity
+import com.example.catalogoapp.data.db.dao.model.ProductEntity
 import com.example.catalogoapp.databinding.FragmentUpdateProductBinding
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
 import com.example.catalogoapp.utils.FilesUtil
@@ -106,11 +106,11 @@ class UpdateProductFragment : Fragment() {
         }
 
         val positionOption = optionsList.indexOf(productEntity.unit)
-        val positionCategory = optionsList.indexOf(productEntity.categoryName)
+        val positionCategory = categoriesList.indexOf(productEntity.categoryName)
         binding.apply {
             productNameInput.setText(productEntity.name)
             productPriceInput.setText(productEntity.price.toString())
-            groupCategoriesSpinner.setSelection(positionOption)
+            groupCategoriesSpinner.setSelection(positionCategory)
             groupOptionsSpinner.setSelection(positionOption)
             imagePreview.setImageBitmap(FilesUtil.getImageBitmapFromCatalogoImages(productEntity.imageName, requireContext()))
         }
@@ -131,7 +131,7 @@ class UpdateProductFragment : Fragment() {
     private fun navigateToTransactionFragment(isSuccess: Boolean, view: View) {
         val action =
             UpdateProductFragmentDirections.actionUpdateProductFragmentToTransactionFragment(
-                isSuccess
+                isSuccess, R.string.no_description_transaction
             )
         view.findNavController().navigate(action)
     }

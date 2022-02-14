@@ -8,25 +8,41 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.example.catalogoapp.R
 import com.example.catalogoapp.databinding.FragmentResultTransactionBinding
+import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
 
 class ResultTransactionFragment : Fragment() {
 
     lateinit var binding: FragmentResultTransactionBinding
+    val args: ResultTransactionFragmentArgs by navArgs()
+    val viewModel: DbTransactionViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentResultTransactionBinding.inflate(layoutInflater, container, false)
 
-        val isSuccess = arguments?.let { ResultTransactionFragmentArgs.fromBundle(it).isSucess } ?: false
-        if (isSuccess) {
+        var errorMoreInfo: Int = R.string.no_description_transaction
+        if (viewModel.errorTransactionInfo.value != null) {
+            errorMoreInfo = viewModel.errorTransactionInfo.value!!
+        }
+
+        viewModel.errorTransactionInfo.observe(viewLifecycleOwner) {
+            errorMoreInfo = it
+            setFailedLayout(it)
+        }
+
+        if (args.isSucess && errorMoreInfo == R.string.no_description_transaction) {
             setSuccessLayout()
         } else {
-            setFailedLayout()
+            setFailedLayout(args.moreInfo)
 
         }
+
+
 
         binding.backButton.setOnClickListener {
             requireActivity().finish()
@@ -43,16 +59,18 @@ class ResultTransactionFragment : Fragment() {
         binding.backButton.setTextColor(greenColor)
         binding.backButton.backgroundTintList = resources.getColorStateList(R.color.green, null)
         binding.backButton.background = ContextCompat.getDrawable(requireActivity(), R.drawable.green_button_border);
+        binding.moreInfoText.setText(resources.getText(R.string.no_description_transaction))
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun setFailedLayout() {
+    private fun setFailedLayout(resourceTextId: Int) {
         val redColor = resources.getColor(R.color.red)
         binding.resultText.text = getString(R.string.failed_transaction)
         binding.resultText.setTextColor(redColor)
         binding.backButton.setTextColor(redColor)
         binding.backButton.backgroundTintList = resources.getColorStateList(R.color.red, null)
         binding.backButton.background = ContextCompat.getDrawable(requireActivity(), R.drawable.red_button_border);
+        binding.moreInfoText.setText(resources.getText(resourceTextId))
     }
 
 

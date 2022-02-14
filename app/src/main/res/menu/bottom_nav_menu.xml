@@ -6,6 +6,10 @@
         android:title="@string/home_string"/>
 
     <item
+        android:id="@+id/categoryListFragment"
+        android:title="@string/categories_string"
+        />
+    <item
         android:id="@+id/exportFragment"
         android:title="@string/export_string"
         />
