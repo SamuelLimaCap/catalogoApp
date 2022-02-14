@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        supportActionBar?.title = "Home"
         setContentView(binding.root)
 
         initVariables()
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.main_host_fragment)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment, R.id.categoryListFragment, R.id.exportFragment
+                R.id.homeFragment, R.id.categoryListFragment
             )
         )
 

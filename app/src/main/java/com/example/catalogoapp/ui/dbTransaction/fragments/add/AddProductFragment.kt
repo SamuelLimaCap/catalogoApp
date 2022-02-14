@@ -10,12 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.catalogoapp.R
-import com.example.catalogoapp.data.db.dao.model.ProductEntity
+import com.example.catalogoapp.model.ProductEntity
 import com.example.catalogoapp.databinding.FragmentAddProductBinding
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
 import com.example.catalogoapp.utils.FilesUtil
@@ -32,7 +33,7 @@ class AddProductFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddProductBinding.inflate(inflater, container, false)
-
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Add product"
         loadCategoriesSpinner()
         loadOptionsSpinner()
         setOnClickToAddImage()

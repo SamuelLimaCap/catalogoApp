@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -23,7 +24,7 @@ class UpdateCategoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUpdateCategoryBinding.inflate(layoutInflater, container, false)
-
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Update category"
         binding.categoryNameInput.setText(args.name)
 
         setOnClickUpdateButtonAndNavigateToTransactionFragment()

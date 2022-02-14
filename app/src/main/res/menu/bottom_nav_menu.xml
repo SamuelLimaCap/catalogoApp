@@ -3,15 +3,13 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:title="@string/home_string"/>
+        android:title="@string/home_string"
+        android:icon="@drawable/home_icon"
+        />
 
     <item
         android:id="@+id/categoryListFragment"
         android:title="@string/categories_string"
+        android:icon="@drawable/category_icon"
         />
-    <item
-        android:id="@+id/exportFragment"
-        android:title="@string/export_string"
-        />
-
 </menu>

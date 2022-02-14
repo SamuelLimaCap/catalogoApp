@@ -1,4 +1,4 @@
-package com.example.catalogoapp.data.db.dao.model
+package com.example.catalogoapp.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

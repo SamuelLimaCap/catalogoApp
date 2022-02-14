@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.example.catalogoapp.R
-import com.example.catalogoapp.data.db.dao.model.CategoryEntity
+import com.example.catalogoapp.model.CategoryEntity
 import com.example.catalogoapp.databinding.FragmentAddCategoryBinding
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
 import kotlinx.coroutines.GlobalScope
@@ -23,7 +24,7 @@ class AddCategoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddCategoryBinding.inflate(inflater, container, false)
-
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "add category"
         binding.addCategoryButton.setOnClickListener {
             val categoryName = binding.categoryNameInput.text.toString()
             var isSuccess = false

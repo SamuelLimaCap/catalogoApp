@@ -5,8 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.catalogoapp.data.db.dao.CatalogoDao
-import com.example.catalogoapp.data.db.dao.model.CategoryEntity
-import com.example.catalogoapp.data.db.dao.model.ProductEntity
+import com.example.catalogoapp.model.CategoryEntity
+import com.example.catalogoapp.model.ProductEntity
 
 
 @Database(

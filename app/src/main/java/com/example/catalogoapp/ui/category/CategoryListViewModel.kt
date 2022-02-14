@@ -3,7 +3,7 @@ package com.example.catalogoapp.ui.category
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.catalogoapp.data.db.dao.model.CategoryEntity
+import com.example.catalogoapp.model.CategoryEntity
 import com.example.catalogoapp.repository.CatalogoRepository
 import kotlinx.coroutines.launch
 

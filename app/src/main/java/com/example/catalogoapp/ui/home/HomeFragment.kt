@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -33,9 +34,9 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
         val homeVMFactory = HomeVMFactory(CatalogoRepository(AppDatabase(requireContext())))
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Home"
         viewModel = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
         init()
-        setActionBar(R.string.title_home)
         setupRecyclerView()
         setupFABs()
 
@@ -54,12 +55,6 @@ class HomeFragment : Fragment() {
         isFABbuttonActive = false;
     }
 
-    private fun setActionBar(titleResource: Int) {
-        activity?.actionBar?.apply {
-            title = resources.getText(titleResource)
-            show()
-        }
-    }
 
     private fun setupRecyclerView() {
         binding.rvListProduct.apply {

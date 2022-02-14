@@ -1,8 +1,8 @@
 package com.example.catalogoapp.data.db.dao
 
 import androidx.room.*
-import com.example.catalogoapp.data.db.dao.model.CategoryEntity
-import com.example.catalogoapp.data.db.dao.model.ProductEntity
+import com.example.catalogoapp.model.CategoryEntity
+import com.example.catalogoapp.model.ProductEntity
 
 @Dao
 interface CatalogoDao {

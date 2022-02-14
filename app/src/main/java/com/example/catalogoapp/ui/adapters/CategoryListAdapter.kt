@@ -4,7 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.catalogoapp.data.db.dao.model.CategoryEntity
+import com.example.catalogoapp.model.CategoryEntity
 import com.example.catalogoapp.databinding.CategoryItemBinding
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionActivity
 

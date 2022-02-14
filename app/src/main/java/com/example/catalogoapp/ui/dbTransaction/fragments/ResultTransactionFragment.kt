@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -24,7 +25,7 @@ class ResultTransactionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentResultTransactionBinding.inflate(layoutInflater, container, false)
-
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Result"
         var errorMoreInfo: Int = R.string.no_description_transaction
         if (viewModel.errorTransactionInfo.value != null) {
             errorMoreInfo = viewModel.errorTransactionInfo.value!!

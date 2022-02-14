@@ -6,18 +6,13 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/exportFragment"
-        android:name="com.example.catalogoapp.ui.export.ExportFragment"
-        android:label="export_fragment"
-        tools:layout="@layout/export_fragment" />
-    <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.catalogoapp.ui.home.HomeFragment"
-        android:label="home_fragment"
+        android:label="Home"
         tools:layout="@layout/home_fragment" />
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="com.example.catalogoapp.ui.category.CategoryListFragment"
-        android:label="category_list_fragment"
+        android:label="Category"
         tools:layout="@layout/category_list_fragment" />
 </navigation>

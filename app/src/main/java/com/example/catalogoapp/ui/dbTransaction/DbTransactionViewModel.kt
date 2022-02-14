@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.catalogoapp.R
-import com.example.catalogoapp.data.db.dao.model.CategoryEntity
-import com.example.catalogoapp.data.db.dao.model.ProductEntity
+import com.example.catalogoapp.model.CategoryEntity
+import com.example.catalogoapp.model.ProductEntity
 import com.example.catalogoapp.repository.CatalogoRepository
 import kotlinx.coroutines.launch
 

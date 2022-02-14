@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.catalogoapp.R
 import com.example.catalogoapp.data.db.AppDatabase
@@ -27,6 +28,7 @@ class CategoryListFragment : Fragment() {
         val viewModelFactory = CategoryListVMProviderFactory(CatalogoRepository(AppDatabase(requireContext())))
         viewModel = ViewModelProvider(this, viewModelFactory).get(CategoryListViewModel::class.java)
         binding = CategoryListFragmentBinding.inflate(inflater, container, false)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Category"
         setupRecyclerView()
 
         viewModel.categoryList.observe(viewLifecycleOwner) {
