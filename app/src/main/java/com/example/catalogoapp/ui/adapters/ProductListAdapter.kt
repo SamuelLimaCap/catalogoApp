@@ -30,7 +30,7 @@ class ProductListAdapter(val context: Context) : RecyclerView.Adapter<ProductLis
         val productEntity = list[position]
         holder.binding.apply {
             layoutItem.setOnClickListener {
-                val dialog = ProductBottomSheetDialog(productEntity.id)
+                val dialog = ProductBottomSheetDialog(productEntity)
                 dialog.show( (context as AppCompatActivity).supportFragmentManager,"edit_dialog_fragment")
             }
             nameItem.text = productEntity.name

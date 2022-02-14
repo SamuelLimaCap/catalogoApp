@@ -21,15 +21,39 @@ class DbTransactionViewModel(
         }
     }
 
+    suspend fun updateProductOnBD(productEntity: ProductEntity) {
+        viewModelScope.launch {
+            repository.updateProduct(productEntity)
+        }
+    }
+
+    fun deleteProductByIdOnBD(productId: Long) {
+        viewModelScope.launch {
+            repository.deleteProductById(productId)
+        }
+    }
+
     fun getProductById(productId: Long) {
         viewModelScope.launch {
-            repository.getProductById(productId)
+            gettedProductById.postValue(repository.getProductById(productId))
         }
     }
 
     suspend fun addCategoryToDB(categoryEntity: CategoryEntity) {
         viewModelScope.launch {
             repository.insertCategory(categoryEntity)
+        }
+    }
+
+    fun updateCategoryToBd(categoryEntity: CategoryEntity) {
+        viewModelScope.launch {
+            repository.deleteCategory(categoryEntity)
+        }
+    }
+
+    fun deleteCategory(categoryEntity: CategoryEntity) {
+        viewModelScope.launch {
+            repository.deleteCategory(categoryEntity)
         }
     }
 

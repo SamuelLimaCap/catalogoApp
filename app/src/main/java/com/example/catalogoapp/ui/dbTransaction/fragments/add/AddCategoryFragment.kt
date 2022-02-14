@@ -1,4 +1,4 @@
-package com.example.catalogoapp.ui.dbTransaction.fragments
+package com.example.catalogoapp.ui.dbTransaction.fragments.add
 
 import android.os.Bundle
 import android.view.LayoutInflater

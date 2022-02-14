@@ -12,29 +12,28 @@
         tools:layout="@layout/fragment_empty" >
         <action
             android:id="@+id/action_emptyFragment_to_productTransactionFragment"
-            app:destination="@id/productTransactionFragment" />
+            app:destination="@id/addProductFragment" />
         <action
             android:id="@+id/action_emptyFragment_to_addCategoryFragment"
             app:destination="@id/addCategoryFragment" />
+        <action
+            android:id="@+id/action_emptyFragment_to_updateProductFragment"
+            app:destination="@id/updateProductFragment" />
+        <action
+            android:id="@+id/action_emptyFragment_to_deleteConfirmationFragment"
+            app:destination="@id/deleteConfirmationFragment" />
     </fragment>
     <fragment
-        android:id="@+id/productTransactionFragment"
-        android:name="com.example.catalogoapp.ui.dbTransaction.fragments.ProductTransactionFragment"
-        android:label="ProductTransactionFragment">
+        android:id="@+id/addProductFragment"
+        android:name="com.example.catalogoapp.ui.dbTransaction.fragments.add.AddProductFragment"
+        android:label="AddProductFragment">
         <action
             android:id="@+id/action_addProductFragment_to_transactionFragment"
             app:destination="@id/transactionFragment" />
-        <argument
-            android:name="typeTransaction"
-            app:argType="string" />
-        <argument
-            android:name="id"
-            android:defaultValue="-1L"
-            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/addCategoryFragment"
-        android:name="com.example.catalogoapp.ui.dbTransaction.fragments.AddCategoryFragment"
+        android:name="com.example.catalogoapp.ui.dbTransaction.fragments.add.AddCategoryFragment"
         android:label="AddCategoryFragment" >
         <action
             android:id="@+id/action_addCategoryFragment_to_transactionFragment"
@@ -53,6 +52,37 @@
         <action
             android:id="@+id/action_transactionFragment_pop"
             app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateProductFragment"
+        android:name="com.example.catalogoapp.ui.dbTransaction.fragments.update.UpdateProductFragment"
+        android:label="UpdateProductFragment" >
+        <action
+            android:id="@+id/action_updateProductFragment_to_transactionFragment"
+            app:destination="@id/transactionFragment" />
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteConfirmationFragment"
+        android:name="com.example.catalogoapp.ui.dbTransaction.fragments.delete.DeleteConfirmationFragment"
+        android:label="fragment_delete_confirmation"
+        tools:layout="@layout/fragment_delete_confirmation" >
+        <action
+            android:id="@+id/action_deleteConfirmationFragment_to_transactionFragment"
+            app:destination="@id/transactionFragment" />
+        <argument
+            android:name="type"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
 
 </navigation>

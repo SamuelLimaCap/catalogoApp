@@ -5,6 +5,7 @@
     <string name="add_food">food</string>
     <string name="add_category">Category</string>
     <string name="add_product_button">Add product</string>
+    <string name="edit_product_button">Edit product</string>
     <string name="product_name_hint">product name</string>
     <string name="product_price_hint">price</string>
     <string name="add_category_button">Add category</string>
@@ -28,4 +29,6 @@
     <string name="failed_transaction">Transaction failed</string>
     <string name="delete_product_dialog">Delete product</string>
     <string name="edit_product_dialog">Edit product</string>
+    <string name="delete_confirmation_text">Are you sure you want delete:</string>
+    <string name="sure_button_text">sure</string>
 </resources>
