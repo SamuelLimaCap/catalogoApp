@@ -6,14 +6,17 @@ Meu primeiro aplicativo utilizando fragmentos junto com a biblioteca "Room"
 
 ## Imagens
 
+### Pagina inicial
 ![botão FAB para dicionar produto/categoria](https://imgur.com/FVE2c3D.png)
 ![Dialog edição do produto](https://imgur.com/Y1AhDNF.png)
 ![Lista de categorias](https://imgur.com/cuRXRdO.png)
 
+### Páginas para adicionar produtos e categoria
 ![Fragment para adicionar produto](https://imgur.com/7sjLHeu.png)
 ![Fragment para adicionar categoria](https://imgur.com/nur5Tki.png)
 
 
+### Páginas de confirmação e resultado de transações(deleções e edições)
 ![Confirmação de deleção](https://imgur.com/JumZ6UJ.png)
 ![Transação sucedida](https://imgur.com/W1xHnHD.png)
 ![Falha na transação](https://imgur.com/hSd9nAl.png)
