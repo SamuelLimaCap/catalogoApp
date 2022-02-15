@@ -11,7 +11,7 @@ Meu primeiro aplicativo utilizando fragmentos junto com a biblioteca "Room"
 ![Dialog edição do produto](https://imgur.com/Y1AhDNF.png)
 ![Lista de categorias](https://imgur.com/cuRXRdO.png)
 
-### Páginas para adicionar produtos e categoria
+### Páginas para adicionar produtos e categorias
 ![Fragment para adicionar produto](https://imgur.com/7sjLHeu.png)
 ![Fragment para adicionar categoria](https://imgur.com/nur5Tki.png)
 
