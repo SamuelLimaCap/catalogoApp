@@ -1,6 +1,8 @@
 # catalogoApp
 
-Um aplicativo para gerenciamento de produtos
+Um aplicativo para gerenciamento de produtos e categorias dos produtos
+
+Meu primeiro aplicativo utilizando fragmentos junto com a biblioteca "Room"
 
 ## Imagens
 
