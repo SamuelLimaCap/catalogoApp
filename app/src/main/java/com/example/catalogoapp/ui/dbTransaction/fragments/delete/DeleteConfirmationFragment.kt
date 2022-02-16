@@ -24,7 +24,7 @@ class DeleteConfirmationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDeleteConfirmationBinding.inflate(inflater, container, false)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "delete confirmation"
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.delete_confirmation_title)
         binding.sureButton.setOnClickListener {
             var isSuccess = false
             when (args.type) {

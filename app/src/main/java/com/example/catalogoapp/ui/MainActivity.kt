@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        supportActionBar?.title = "Home"
+        supportActionBar?.title = getString(R.string.title_home)
         setContentView(binding.root)
 
         initVariables()

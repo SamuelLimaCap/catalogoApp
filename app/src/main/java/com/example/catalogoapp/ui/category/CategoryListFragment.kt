@@ -28,7 +28,7 @@ class CategoryListFragment : Fragment() {
         val viewModelFactory = CategoryListVMProviderFactory(CatalogoRepository(AppDatabase(requireContext())))
         viewModel = ViewModelProvider(this, viewModelFactory).get(CategoryListViewModel::class.java)
         binding = CategoryListFragmentBinding.inflate(inflater, container, false)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Category"
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.categories_string)
         setupRecyclerView()
 
         viewModel.categoryList.observe(viewLifecycleOwner) {

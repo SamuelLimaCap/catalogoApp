@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CatalogoAPP</string>
+    <string name="export_string">Exportar</string>
+    <string name="home_string">Início</string>
+    <string name="add_food">Produto</string>
+    <string name="add_category">Categoria</string>
+    <string name="add_product_button">Adicionar produto</string>
+    <string name="edit_product_button">Editar produto</string>
+    <string name="product_name_hint">Nome do produto</string>
+    <string name="product_price_hint">preço</string>
+    <string name="add_category_button">Adicionar categoria</string>
+    <string name="edit_category_button">Editar categoria</string>
+    <string name="category_name_hint">Nome da categoria</string>
+
+    <string-array name="spinner_group_options">
+        <item>Unidade</item>
+        <item>Kg</item>
+    </string-array>
+
+    <string name="title_home">Início</string>
+    <string name="title_export">Exportar</string>
+    <string name="title_category">Categorias</string>
+    <string name="title_add_category">Adicionar categoria</string>
+    <string name="title_add_product">Adicionar produto</string>
+    <string name="title_update_cetegory">Atualizar categoria</string>
+    <string name="title_update_product">Atualizar produto</string>
+    <string name="hello_blank_fragment">Fragmento vazio</string>
+    <string name="successfully_added_transaction">Transação sucedida</string>
+    <string name="back_button">Voltar</string>
+    <string name="categories_text">Categorias</string>
+    <string name="options_text">Opções</string>
+    <string name="failed_transaction">Falha na transação</string>
+    <string name="delete_product_dialog">Deletar produto</string>
+    <string name="edit_product_dialog">Editar produto</string>
+    <string name="delete_confirmation_text">Tem certeza que quer deletar:</string>
+    <string name="sure_button_text">Com certeza</string>
+    <string name="categories_string">Categorias</string>
+
+    <string name="error_category_constraint_transaction">Há algum produto com esta categoria</string>
+    <string name="no_description_transaction" />
+    <string name="delete_confirmation_title">Confirmação de deleção</string>
+</resources>

@@ -16,13 +16,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.example.catalogoapp.R
-import com.example.catalogoapp.model.ProductEntity
 import com.example.catalogoapp.databinding.FragmentAddProductBinding
+import com.example.catalogoapp.model.ProductEntity
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
 import com.example.catalogoapp.utils.FilesUtil
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.lang.ClassCastException
 
 class AddProductFragment : Fragment() {
 
@@ -33,7 +32,7 @@ class AddProductFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddProductBinding.inflate(inflater, container, false)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Add product"
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_add_product)
         loadCategoriesSpinner()
         loadOptionsSpinner()
         setOnClickToAddImage()
@@ -73,7 +72,8 @@ class AddProductFragment : Fragment() {
             takePhoto.launch("image/*")
         }
     }
-    private val takePhoto = registerForActivityResult(ActivityResultContracts.GetContent()) {
+    private val takePhoto =
+        registerForActivityResult(ActivityResultContracts.GetContent()) {
         binding.imagePreview.setImageURI(it)
     }
 

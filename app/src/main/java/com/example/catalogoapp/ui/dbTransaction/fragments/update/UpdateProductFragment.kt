@@ -134,7 +134,7 @@ class UpdateProductFragment : Fragment() {
             UpdateProductFragmentDirections.actionUpdateProductFragmentToTransactionFragment(
                 isSuccess, R.string.no_description_transaction
             )
-        view.findNavController().navigate(action)
+        requireView().findNavController().navigate(action)
     }
 
     private fun checkInputContent(): Boolean {

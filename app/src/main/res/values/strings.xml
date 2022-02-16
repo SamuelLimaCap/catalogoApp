@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">catalogoApp</string>
-    <string name="export_string">Exportar</string>
-    <string name="home_string">Home</string>
-    <string name="add_food">food</string>
+    <string name="app_name">CatalogoAPP</string>
+    <string name="export_string">export</string>
+    <string name="home_string">Início</string>
+    <string name="add_food">Product</string>
     <string name="add_category">Category</string>
     <string name="add_product_button">Add product</string>
     <string name="edit_product_button">Edit product</string>
@@ -19,9 +19,11 @@
 
     <string name="title_home">Home</string>
     <string name="title_export">Export</string>
+    <string name="title_category">Categories</string>
     <string name="title_add_category">Add category</string>
     <string name="title_add_product">Add product</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_update_cetegory">Update category</string>
+    <string name="title_update_product">Update product</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="successfully_added_transaction">Successful transaction</string>
     <string name="back_button">back</string>
@@ -36,4 +38,5 @@
 
     <string name="error_category_constraint_transaction">There\'s some product with this category</string>
     <string name="no_description_transaction" />
+    <string name="delete_confirmation_title">delete confirmation</string>
 </resources>

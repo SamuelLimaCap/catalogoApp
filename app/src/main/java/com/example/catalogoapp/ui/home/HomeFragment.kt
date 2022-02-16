@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
         val homeVMFactory = HomeVMFactory(CatalogoRepository(AppDatabase(requireContext())))
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Home"
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_home)
         viewModel = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
         init()
         setupRecyclerView()

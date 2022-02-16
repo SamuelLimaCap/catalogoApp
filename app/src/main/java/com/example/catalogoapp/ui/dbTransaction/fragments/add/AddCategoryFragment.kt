@@ -24,7 +24,7 @@ class AddCategoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddCategoryBinding.inflate(inflater, container, false)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "add category"
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_add_category)
         binding.addCategoryButton.setOnClickListener {
             val categoryName = binding.categoryNameInput.text.toString()
             var isSuccess = false
