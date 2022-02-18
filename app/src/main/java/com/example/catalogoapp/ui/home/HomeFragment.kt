@@ -43,6 +43,7 @@ class HomeFragment : Fragment() {
         viewModel.listProducts.observe(viewLifecycleOwner) {
             productListAdapter.submitList(it)
         }
+
         return binding.root
     }
 

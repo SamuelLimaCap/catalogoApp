@@ -37,7 +37,14 @@
     <string name="sure_button_text">Com certeza</string>
     <string name="categories_string">Categorias</string>
 
-    <string name="error_category_constraint_transaction">Há algum produto com esta categoria</string>
+
     <string name="no_description_transaction" />
     <string name="delete_confirmation_title">Confirmação de deleção</string>
+
+    <string name="error_category_constraint_transaction">Há algum produto com esta categoria</string>
+    <string name="error_options_empty">Campo /"opção/" está vazia</string>
+    <string name="error_add_category_before_add_product">Adicione uma categoria antes de adicionar um produto</string>
+    <string name="error_category_empty">Campo /"categoria/" está vazia</string>
+    <string name="error_product_name_empty">O nome do produto está vazio</string>
+    <string name="error_product_price_empty">O preço do produto está vazio</string>
 </resources>

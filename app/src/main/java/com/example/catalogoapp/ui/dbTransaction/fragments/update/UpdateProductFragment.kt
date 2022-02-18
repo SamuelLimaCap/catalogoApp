@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
@@ -17,10 +18,12 @@ import androidx.navigation.fragment.navArgs
 import com.example.catalogoapp.R
 import com.example.catalogoapp.model.ProductEntity
 import com.example.catalogoapp.databinding.FragmentUpdateProductBinding
+import com.example.catalogoapp.model.Response
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
 import com.example.catalogoapp.utils.FilesUtil
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 
 class UpdateProductFragment : Fragment() {
@@ -35,7 +38,7 @@ class UpdateProductFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentUpdateProductBinding.inflate(inflater, container, false)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Update product"
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_update_product)
         loadOptionsSpinner()
         loadCategoriesSpinner()
         setOnClickToAddImage()
@@ -121,11 +124,14 @@ class UpdateProductFragment : Fragment() {
         binding.updateProductButton.setOnClickListener {
             val isInputsValid = checkInputContent()
             var isSuccess: Boolean = false
-            if (isInputsValid) {
+            if (isInputsValid.type) {
                 isSuccess = true
                 updateProductToBD()
+                navigateToTransactionFragment(isSuccess, it)
+            } else {
+                Toast.makeText(requireContext(), isInputsValid.reason, Toast.LENGTH_LONG).show()
             }
-            navigateToTransactionFragment(isSuccess, it)
+
         }
     }
 
@@ -137,14 +143,38 @@ class UpdateProductFragment : Fragment() {
         requireView().findNavController().navigate(action)
     }
 
-    private fun checkInputContent(): Boolean {
-        binding.apply {
-            if (groupOptionsSpinner.selectedItem.toString().isEmpty()) return false
-            if (groupCategoriesSpinner.selectedItem.toString().isEmpty()) return false
-            if (productNameInput.text.toString().isEmpty()) return false
-            if (productPriceInput.text.toString().toFloat() < 0.0) return false
+    private fun checkInputContent(): Response<Boolean> {
+        val response = try {
+            binding.apply {
+                if (groupOptionsSpinner.selectedItem.toString().isEmpty())
+                    throw Exception(
+                        getString(
+                            R.string.error_options_empty
+                        )
+                    )
+                if (groupCategoriesSpinner.selectedItem == null)
+                    throw Exception(getString(R.string.error_add_category_before_add_product))
+                if (groupCategoriesSpinner.selectedItem.toString().isEmpty())
+                    throw Exception(
+                        getString(
+                            R.string.error_category_empty
+                        )
+                    )
+                if (productNameInput.text.toString().isEmpty())
+                    throw Exception(getString(R.string.error_product_name_empty))
+                if (productPriceInput.text.toString().toFloat() < 0.0)
+                    throw Exception(
+                        getString(
+                            R.string.error_product_price_empty
+                        )
+                    )
+            }
+            Response(true, "")
+        } catch (e: Exception) {
+            Response(false, e.message!!)
         }
-        return true
+
+        return response
     }
 
     private fun getProductFromInputs(): ProductEntity {

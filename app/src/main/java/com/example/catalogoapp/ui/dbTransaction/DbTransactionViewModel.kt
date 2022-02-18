@@ -43,7 +43,7 @@ class DbTransactionViewModel(
         }
     }
 
-    suspend fun addCategoryToDB(categoryEntity: CategoryEntity) {
+    fun addCategoryToDB(categoryEntity: CategoryEntity) {
         viewModelScope.launch {
             repository.insertCategory(categoryEntity)
         }
