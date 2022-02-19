@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CatalogoAPP</string>
     <string name="export_string">export</string>
-    <string name="home_string">Início</string>
+    <string name="home_string">Home</string>
     <string name="add_food">Product</string>
     <string name="add_category">Category</string>
     <string name="add_product_button">Add product</string>

@@ -12,4 +12,9 @@
         android:title="@string/categories_string"
         android:icon="@drawable/category_icon"
         />
+    <item
+        android:id="@+id/exportFragment"
+        android:title="@string/export_string"
+        android:icon="@drawable/category_icon"
+        />
 </menu>
