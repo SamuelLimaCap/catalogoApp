@@ -25,6 +25,16 @@ class DeleteConfirmationFragment : Fragment() {
     ): View {
         binding = FragmentDeleteConfirmationBinding.inflate(inflater, container, false)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.delete_confirmation_title)
+
+        setOnClickSureButton()
+        setOnClickBackButton()
+        setItemOnTextConfirmation()
+
+
+        return binding.root
+    }
+
+    private fun setOnClickSureButton() {
         binding.sureButton.setOnClickListener {
             var isSuccess = false
             when (args.type) {
@@ -39,11 +49,19 @@ class DeleteConfirmationFragment : Fragment() {
             }
             navigateToTransactionFragment(isSuccess, it)
         }
-
-
-        binding.deleteItemToDeleteText.text = args.name
-        return binding.root
     }
+
+    fun setOnClickBackButton() {
+        binding.backButton.setOnClickListener {
+            requireActivity().finish()
+        }
+    }
+
+    private fun setItemOnTextConfirmation() {
+        binding.deleteItemToDeleteText.text = args.name
+    }
+
+
 
     private fun navigateToTransactionFragment(isSuccess: Boolean, view: View) {
         val action =
