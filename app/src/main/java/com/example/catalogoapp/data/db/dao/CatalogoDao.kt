@@ -22,6 +22,9 @@ interface CatalogoDao {
     @Query("SELECT * FROM product")
     suspend fun getAllProducts() : List<ProductEntity>
 
+    @Query("SELECT * FROM product ORDER BY categoryName")
+    suspend fun getAllProductsGroupByCategory() : List<ProductEntity>
+
     @Query("SELECT * FROM product WHERE id =:productId")
     suspend fun getProductById(productId: Long) : ProductEntity
 

@@ -10,19 +10,18 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.catalogoapp.R
 import com.example.catalogoapp.data.db.AppDatabase
 import com.example.catalogoapp.databinding.HomeFragmentBinding
 import com.example.catalogoapp.repository.CatalogoRepository
-import com.example.catalogoapp.ui.adapters.ProductListAdapter
+import com.example.catalogoapp.ui.adapters.ProductsGroupByCategoryAdapter
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionActivity
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: HomeFragmentBinding
-    private val productListAdapter by lazy { ProductListAdapter(requireContext()) }
+    private val productsGroupByCategoryAdapter by lazy { ProductsGroupByCategoryAdapter() }
 
     private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(this.context, R.anim.rotate_open_anim) }
     private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(this.context, R.anim.rotate_close_anim) }
@@ -40,8 +39,8 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         setupFABs()
 
-        viewModel.listProducts.observe(viewLifecycleOwner) {
-            productListAdapter.submitList(it)
+        viewModel.listProductsGroupByCategory.observe(viewLifecycleOwner) {
+            productsGroupByCategoryAdapter.submitList(it)
         }
 
         return binding.root
@@ -49,7 +48,7 @@ class HomeFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        viewModel.getListProducts()
+        viewModel.getListProductsByCategory()
     }
 
     private fun init() {
@@ -59,8 +58,8 @@ class HomeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.rvListProduct.apply {
-            layoutManager = GridLayoutManager(this.context,2)
-            adapter = productListAdapter
+            layoutManager = LinearLayoutManager(context)
+            adapter = productsGroupByCategoryAdapter
         }
 
     }

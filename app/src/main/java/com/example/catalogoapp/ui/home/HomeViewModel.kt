@@ -5,21 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.catalogoapp.model.CategoryEntity
 import com.example.catalogoapp.model.ProductEntity
+import com.example.catalogoapp.model.ProductsGroupByCategory
 import com.example.catalogoapp.repository.CatalogoRepository
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     val repository: CatalogoRepository
 ): ViewModel() {
-    val listProducts = MutableLiveData<List<ProductEntity>>()
+    val listProductsGroupByCategory = MutableLiveData<List<ProductsGroupByCategory>>()
     val listCategories = MutableLiveData<List<CategoryEntity>>()
     init {
-        getListProducts()
+        getListProductsByCategory()
     }
 
-     fun getListProducts() {
+     fun getListProductsByCategory() {
         viewModelScope.launch {
-            listProducts.postValue(repository.getAllProducts())
+            listProductsGroupByCategory.postValue(repository.getProductsGroupByCategory())
         }
     }
 
