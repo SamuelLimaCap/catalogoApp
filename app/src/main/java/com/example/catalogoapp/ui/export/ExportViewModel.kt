@@ -12,8 +12,9 @@ class ExportViewModel(
     private val repository: CatalogoRepository
 ) : ViewModel() {
 
-    val listProductsByCategory = MutableLiveData<List<ProductsGroupByCategory>>()
+
     val listCategory = MutableLiveData<List<CategoryEntity>>()
+    val listProductsByCategory = MutableLiveData<List<ProductsGroupByCategory>>()
 
     init {
         getCategories()

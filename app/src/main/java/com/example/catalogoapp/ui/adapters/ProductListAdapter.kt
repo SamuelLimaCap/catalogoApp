@@ -35,7 +35,10 @@ class ProductListAdapter(val context: Context) : RecyclerView.Adapter<ProductLis
             }
             nameItem.text = productEntity.name
             val price = productEntity.price.toString() + "/ " + productEntity.unit
-            priceItem.text = price
+            priceItem.text = context.getString(R.string.price_product_per_unit,
+                productEntity.price.toString().replace(".",","),
+                productEntity.unit
+            )
         }
         if (productEntity.imageName.isNotEmpty()) {
             val context = holder.binding.imageItem.context

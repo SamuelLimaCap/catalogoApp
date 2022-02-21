@@ -2,13 +2,16 @@ package com.example.catalogoapp.ui.export
 
 import android.graphics.pdf.PdfDocument
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.catalogoapp.R
@@ -16,13 +19,14 @@ import com.example.catalogoapp.data.db.AppDatabase
 import com.example.catalogoapp.databinding.ExportFragmentBinding
 import com.example.catalogoapp.model.ProductsGroupByCategory
 import com.example.catalogoapp.repository.CatalogoRepository
+import com.example.catalogoapp.ui.MainViewModel
 import com.example.catalogoapp.ui.adapters.ProductsGroupByCategoryAdapter
 import com.example.catalogoapp.ui.adapters.export.SelectCategoryToExportAdapter
 import java.io.File
 import java.io.FileOutputStream
 
 class ExportFragment : Fragment() {
-    private lateinit var viewModel: ExportViewModel
+    private val viewModel: MainViewModel by activityViewModels()
     private lateinit var binding: ExportFragmentBinding
     lateinit var adapter: SelectCategoryToExportAdapter
     private var waitingForExport = false;
@@ -33,9 +37,6 @@ class ExportFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = ExportFragmentBinding.inflate(inflater, container, false);
-        val exportViewModelFactory =
-            ExportViewModelFactory(CatalogoRepository(AppDatabase(requireContext())))
-        viewModel = ViewModelProvider(this, exportViewModelFactory).get(ExportViewModel::class.java)
         setActionBar(R.string.title_export)
 
         setupRecyclerView()
@@ -43,8 +44,8 @@ class ExportFragment : Fragment() {
 
         viewModel.listProductsByCategory.observe(viewLifecycleOwner) {
             if (waitingForExport) {
-                exportAsPDF(it)
-                Toast.makeText(requireContext(), "Successfully exported", Toast.LENGTH_LONG).show()
+                Log.e("ExportFragment", "observerListProdutsByCategory")
+                findNavController().navigate(R.id.action_exportFragment_to_exportPdfFragment)
                 waitingForExport = false;
             }
         }
