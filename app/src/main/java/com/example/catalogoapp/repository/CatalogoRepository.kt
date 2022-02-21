@@ -48,6 +48,8 @@ class CatalogoRepository(
         return listGrouped
     }
 
+    suspend fun getAllProductsByCategory(categoryName: String) = db.getCatalogoDao().getAllProductsByCategory(categoryName)
+
     suspend fun getProductById(productId: Long) = db.getCatalogoDao().getProductById(productId)
 
     suspend fun insertCategory(category: CategoryEntity) =

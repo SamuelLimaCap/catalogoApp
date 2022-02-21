@@ -8,11 +8,25 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.catalogoapp.ui.home.HomeFragment"
-        android:label="Home"
+        android:label="@string/home_string"
         tools:layout="@layout/home_fragment" />
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="com.example.catalogoapp.ui.category.CategoryListFragment"
-        android:label="Category"
+        android:label="@string/categories_string"
         tools:layout="@layout/category_list_fragment" />
+    <fragment
+        android:id="@+id/exportFragment"
+        android:name="com.example.catalogoapp.ui.export.ExportFragment"
+        android:label="@string/export_string"
+        tools:layout="@layout/export_fragment" >
+        <action
+            android:id="@+id/action_exportFragment_to_exportPdfFragment"
+            app:destination="@id/exportPdfFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exportPdfFragment"
+        android:name="com.example.catalogoapp.ui.export.SamplePdfExportFragment"
+        android:label="@string/export_string"
+        tools:layout="@layout/fragment_export_pdf" />
 </navigation>

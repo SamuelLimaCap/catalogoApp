@@ -28,6 +28,9 @@ interface CatalogoDao {
     @Query("SELECT * FROM product WHERE id =:productId")
     suspend fun getProductById(productId: Long) : ProductEntity
 
+    @Query("SELECT * FROM product WHERE categoryName = :categoryName")
+    suspend fun getAllProductsByCategory(categoryName: String) : List<ProductEntity>
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCategory(category: CategoryEntity)

@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.314" />
         <entry key="app/src/main/res/drawable/add_icon.xml" value="0.202" />
+        <entry key="app/src/main/res/drawable/bg_semi_colored.xml" value="0.216" />
         <entry key="app/src/main/res/drawable/bottom_dialog_bg.xml" value="0.2" />
         <entry key="app/src/main/res/drawable/category_icon.xml" value="0.202" />
         <entry key="app/src/main/res/drawable/delete_icon.xml" value="0.314" />
@@ -29,13 +30,15 @@
         <entry key="app/src/main/res/layout/fragment_category_list.xml" value="0.24814814814814815" />
         <entry key="app/src/main/res/layout/fragment_delete_confirmation.xml" value="0.30739632321504917" />
         <entry key="app/src/main/res/layout/fragment_empty.xml" value="0.30739632321504917" />
+        <entry key="app/src/main/res/layout/fragment_export_pdf.xml" value="0.1587962962962963" />
         <entry key="app/src/main/res/layout/fragment_result_transaction.xml" value="0.30739632321504917" />
         <entry key="app/src/main/res/layout/fragment_transaction.xml" value="0.221889696451475" />
         <entry key="app/src/main/res/layout/fragment_update_category.xml" value="0.16064814814814815" />
         <entry key="app/src/main/res/layout/fragment_update_product.xml" value="0.1483539974348012" />
-        <entry key="app/src/main/res/layout/home_fragment.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/home_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_category_rv_product_item.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/product_item.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/item_category_select.xml" value="0.33287037037037037" />
+        <entry key="app/src/main/res/layout/product_item.xml" value="0.25" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.37447916666666664" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.33287037037037037" />
       </map>

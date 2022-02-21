@@ -1,10 +1,9 @@
 package com.example.catalogoapp.ui.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.catalogoapp.databinding.ItemCategoryRvProductItemBinding
 import com.example.catalogoapp.model.ProductEntity
@@ -48,6 +47,12 @@ class ProductsGroupByCategoryAdapter :
         holder.bind()
         holder.submitList(listItems[position].productList)
         holder.binding.categoryName.text = listItems[position].category
+        val categoryName = holder.binding.categoryName
+
+        val wrapSpec: Int = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        categoryName.measure(wrapSpec, wrapSpec)
+
+        categoryName.width = categoryName.measuredWidth + (categoryName.measuredWidth*0.4).toInt()
     }
 
     override fun getItemCount() = listItems.size
