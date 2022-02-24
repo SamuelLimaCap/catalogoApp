@@ -23,10 +23,10 @@ class HomeFragment : Fragment() {
     private lateinit var binding: HomeFragmentBinding
     private val productsGroupByCategoryAdapter by lazy { ProductsGroupByCategoryAdapter() }
 
-    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(this.context, R.anim.rotate_open_anim) }
-    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(this.context, R.anim.rotate_close_anim) }
-    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(this.context, R.anim.from_bottom_anim) }
-    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(this.context, R.anim.to_bottom_anim) }
+    private val rotateOpen: Animation by lazy {AnimationUtils.loadAnimation(this.context, R.anim.rotate_open_anim)}
+    private val rotateClose: Animation by lazy {AnimationUtils.loadAnimation(this.context, R.anim.rotate_close_anim)}
+    private val fromBottom: Animation by lazy {AnimationUtils.loadAnimation(this.context, R.anim.from_bottom_anim)}
+    private val toBottom: Animation by lazy {AnimationUtils.loadAnimation(this.context, R.anim.to_bottom_anim)}
     private var isFABbuttonActive: Boolean = false
 
 
@@ -73,14 +73,14 @@ class HomeFragment : Fragment() {
 
         binding.fabAddFood.setOnClickListener {
             val intent = Intent(this.context, DbTransactionActivity::class.java)
-            intent.putExtra("type","add")
+            intent.putExtra("type", "add")
             intent.putExtra("entity", "product")
 
             startActivity(intent)
         }
         binding.fabAddCategory.setOnClickListener {
             val intent = Intent(this.context, DbTransactionActivity::class.java)
-            intent.putExtra("type","add")
+            intent.putExtra("type", "add")
             intent.putExtra("entity", "category")
 
             startActivity(intent)
@@ -96,7 +96,8 @@ class HomeFragment : Fragment() {
             binding.fabAdd.startAnimation(rotateClose)
         }
     }
-    private fun setSubFABsVisibility(isMainFABActive : Boolean) {
+
+    private fun setSubFABsVisibility(isMainFABActive: Boolean) {
         if (isMainFABActive) {
             binding.fabAddFood.show()
             binding.fabAddCategory.show()

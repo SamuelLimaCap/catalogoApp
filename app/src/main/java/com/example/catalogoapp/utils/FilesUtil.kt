@@ -2,16 +2,14 @@ package com.example.catalogoapp.utils
 
 import android.content.Context
 import android.content.ContextWrapper
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.pdf.PdfDocument
 import android.os.Environment
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import com.example.catalogoapp.model.InternalStoragePhoto
 import java.io.File
+import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.net.URI
@@ -33,6 +31,45 @@ object FilesUtil {
                 val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
                 InternalStoragePhoto(it.name, bmp)
             }?.toList() ?: listOf()
+    }
+
+    fun saveBitmapToFile(file: File): File? {
+        return try {
+
+            // BitmapFactory options to downsize the image
+            val o = BitmapFactory.Options()
+            o.inJustDecodeBounds = true
+            o.inSampleSize = 6
+            // factor of downsizing the image
+            var inputStream = FileInputStream(file)
+            //Bitmap selectedBitmap = null;
+            BitmapFactory.decodeStream(inputStream, null, o)
+            inputStream.close()
+
+            // The new size we want to scale to
+            val REQUIRED_SIZE = 75
+
+            // Find the correct scale value. It should be the power of 2.
+            var scale = 1
+            while (o.outWidth / scale / 2 >= REQUIRED_SIZE &&
+                o.outHeight / scale / 2 >= REQUIRED_SIZE
+            ) {
+                scale *= 2
+            }
+            val o2 = BitmapFactory.Options()
+            o2.inSampleSize = scale
+            inputStream = FileInputStream(file)
+            val selectedBitmap = BitmapFactory.decodeStream(inputStream, null, o2)
+            inputStream.close()
+
+            // here i override the original image file
+            file.createNewFile()
+            val outputStream = FileOutputStream(file)
+            selectedBitmap!!.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            file
+        } catch (e: Exception) {
+            null
+        }
     }
 
     fun getImageBitmapFromCatalogoImages(imageName: String, applicationContext: Context): Bitmap {
@@ -58,7 +95,7 @@ object FilesUtil {
         var fos: FileOutputStream? = null
         fos = FileOutputStream(filePath)
         try {
-            bmp.compress(Bitmap.CompressFormat.PNG, 40, fos)
+            bmp.compress(Bitmap.CompressFormat.PNG,90, fos)
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {
@@ -118,6 +155,8 @@ object FilesUtil {
         }
         return false
     }
+
+
 
 
 }

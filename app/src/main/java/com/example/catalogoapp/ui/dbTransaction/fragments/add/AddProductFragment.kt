@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import com.example.catalogoapp.model.ProductEntity
 import com.example.catalogoapp.model.Response
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
 import com.example.catalogoapp.utils.FilesUtil
+import com.example.catalogoapp.utils.ImageResizer
 import com.example.catalogoapp.utils.ProductUtil
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -86,7 +88,9 @@ class AddProductFragment : Fragment() {
 
     private val takePhoto =
         registerForActivityResult(ActivityResultContracts.GetContent()) {
-            binding.imagePreview.setImageURI(it)
+            var bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, it)
+            bitmap = ImageResizer.reduceBitmapSize(bitmap, 240_000)
+            binding.imagePreview.setImageBitmap(bitmap)
         }
 
     private fun setOnClickAddButton() {
@@ -127,12 +131,15 @@ class AddProductFragment : Fragment() {
 
     private fun addProductToBD() {
         val product = getProductFromInputs()
-        FilesUtil.savePhotoToInternalStorage(
-            requireContext(),
-            product.imageName,
-            getBitmapFromDrawable(binding.imagePreview.drawable)
-        )
-        GlobalScope.launch { viewModel.addProductToDB(product) }
+        GlobalScope.launch {
+            FilesUtil.savePhotoToInternalStorage(
+                requireContext(),
+                product.imageName,
+                getBitmapFromDrawable(binding.imagePreview.drawable)
+            )
+            viewModel.addProductToDB(product)
+        }
+
     }
 
     private fun getBitmapFromDrawable(drawable: Drawable): Bitmap {
