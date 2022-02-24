@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.catalogoapp.R
 import com.example.catalogoapp.model.CategoryEntity
 import com.example.catalogoapp.model.ProductEntity
+import com.example.catalogoapp.model.exception.InvalidInputException
 import com.example.catalogoapp.repository.CatalogoRepository
 import kotlinx.coroutines.launch
 
@@ -70,4 +71,29 @@ class DbTransactionViewModel(
     }
 
     suspend fun clearAllTables() = repository.clearAllTables()
+
+    fun isProductContentValid(productEntity: ProductEntity): Boolean {
+        if (productEntity.name.isEmpty()) {
+            throw InvalidInputException(R.string.error_product_name_empty)
+        }
+        if (productEntity.categoryName.isEmpty()) {
+            throw InvalidInputException(R.string.error_category_empty)
+        }
+        if (productEntity.unit.isEmpty()) {
+            throw InvalidInputException(R.string.error_options_empty)
+        }
+        if (productEntity.price < 0.0F) {
+            throw InvalidInputException(R.string.error_product_price_empty)
+        }
+
+        return true
+    }
+
+    fun isCategoryContentValid(categoryEntity: CategoryEntity): Boolean  {
+        if (categoryEntity.category.isEmpty() || categoryEntity.category.isBlank()) {
+            throw InvalidInputException(R.string.error_category_empty)
+        }
+
+        return true;
+    }
 }
