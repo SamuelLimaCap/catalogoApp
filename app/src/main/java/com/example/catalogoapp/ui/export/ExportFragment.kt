@@ -6,19 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.catalogoapp.R
-import com.example.catalogoapp.data.db.AppDatabase
 import com.example.catalogoapp.databinding.ExportFragmentBinding
 import com.example.catalogoapp.model.ProductsGroupByCategory
-import com.example.catalogoapp.repository.CatalogoRepository
 import com.example.catalogoapp.ui.MainViewModel
 import com.example.catalogoapp.ui.adapters.ProductsGroupByCategoryAdapter
 import com.example.catalogoapp.ui.adapters.export.SelectCategoryToExportAdapter
@@ -32,9 +27,7 @@ class ExportFragment : Fragment() {
     private var waitingForExport = false;
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = ExportFragmentBinding.inflate(inflater, container, false);
         setActionBar(R.string.title_export)
@@ -80,10 +73,8 @@ class ExportFragment : Fragment() {
     private fun exportAsPDF(list: List<ProductsGroupByCategory>) {
         //Create and setup recycler view
         val recyclerView = RecyclerView(this.requireContext())
-        val params = RecyclerView.LayoutParams(
-            RecyclerView.LayoutParams.MATCH_PARENT,
-            RecyclerView.LayoutParams.WRAP_CONTENT
-        )
+        val params =
+            RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT)
         recyclerView.layoutParams = params
 
         val layoutManager = LinearLayoutManager(requireContext())
@@ -114,9 +105,7 @@ class ExportFragment : Fragment() {
         pdfDocument.close()
 
 
-
     }
-
 
 
 }

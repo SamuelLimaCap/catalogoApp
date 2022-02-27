@@ -7,11 +7,9 @@ import android.graphics.BitmapFactory
 import android.graphics.pdf.PdfDocument
 import android.os.Environment
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.example.catalogoapp.model.InternalStoragePhoto
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
+import java.io.*
 import java.net.URI
 
 object FilesUtil {
@@ -23,14 +21,12 @@ object FilesUtil {
     }
 
     fun loadInternalStoragePhotos(filesDir: File): List<InternalStoragePhoto> {
-        val listImages =
-            filesDir.listFiles().find { it.isDirectory && it.name == "catalogoImages" }?.listFiles()
-        return listImages?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") }
-            ?.map {
-                val bytes = it.readBytes()
-                val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                InternalStoragePhoto(it.name, bmp)
-            }?.toList() ?: listOf()
+        val listImages = filesDir.listFiles().find { it.isDirectory && it.name == "catalogoImages" }?.listFiles()
+        return listImages?.filter { it.canRead() && it.isFile && it.name.endsWith(".jpg") }?.map {
+            val bytes = it.readBytes()
+            val bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            InternalStoragePhoto(it.name, bmp)
+        }?.toList() ?: listOf()
     }
 
     fun saveBitmapToFile(file: File): File? {
@@ -51,9 +47,7 @@ object FilesUtil {
 
             // Find the correct scale value. It should be the power of 2.
             var scale = 1
-            while (o.outWidth / scale / 2 >= REQUIRED_SIZE &&
-                o.outHeight / scale / 2 >= REQUIRED_SIZE
-            ) {
+            while (o.outWidth / scale / 2 >= REQUIRED_SIZE && o.outHeight / scale / 2 >= REQUIRED_SIZE) {
                 scale *= 2
             }
             val o2 = BitmapFactory.Options()
@@ -84,9 +78,7 @@ object FilesUtil {
 
 
     fun savePhotoToInternalStorage(
-        applicationContext: Context,
-        fileName: String,
-        bmp: Bitmap
+        applicationContext: Context, fileName: String, bmp: Bitmap
     ): String {
         val cw = ContextWrapper(applicationContext)
         val directory = cw.getDir("catalogoImages", Context.MODE_PRIVATE)
@@ -95,7 +87,7 @@ object FilesUtil {
         var fos: FileOutputStream? = null
         fos = FileOutputStream(filePath)
         try {
-            bmp.compress(Bitmap.CompressFormat.PNG,90, fos)
+            bmp.compress(Bitmap.CompressFormat.PNG, 90, fos)
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {
@@ -106,15 +98,18 @@ object FilesUtil {
 
     }
 
-    fun exportAsPDF(context: Context, nameFile: String, view: View): URI {
+    fun exportAsPDF(context: Context, nameFile: String, view: View, pageNumber: Int = 1): URI {
 
         val file = File(context.filesDir, "$nameFile.pdf")
+        //Clear the file content
+        if (file.exists()) PrintWriter(file).close()
+
         val outputStream = FileOutputStream(file)
 
         val pdfDocument = PdfDocument()
-        val pageInfo =
-            PdfDocument.PageInfo.Builder(view.width, view.height, 1)
-                .create()
+        val rView = view as RecyclerView
+
+        val pageInfo = PdfDocument.PageInfo.Builder(view.width, view.height, pageNumber).create()
         val page = pdfDocument.startPage(pageInfo)
 
         view.draw(page.canvas)
@@ -127,14 +122,15 @@ object FilesUtil {
     }
 
     fun writeFileExternalStorage(URI: URI, isPermissionGranted: Boolean): URI? {
-        if (!isExternalStorageWritable()
-            || !isPermissionGranted
-        ) {
+        if (!isExternalStorageWritable() || !isPermissionGranted) {
             return null
         }
 
         val file = File(Environment.getExternalStorageDirectory(), "exportedPdf.pdf")
-        var outputStream: FileOutputStream? = null
+        //Clear the file content
+        if (file.exists()) PrintWriter(file).close()
+
+        var outputStream: FileOutputStream?
         outputStream = FileOutputStream(file, true)
 
         try {

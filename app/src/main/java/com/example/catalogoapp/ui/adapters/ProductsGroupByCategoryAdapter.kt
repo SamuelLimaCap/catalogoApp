@@ -9,17 +9,16 @@ import com.example.catalogoapp.databinding.ItemCategoryRvProductItemBinding
 import com.example.catalogoapp.model.ProductEntity
 import com.example.catalogoapp.model.ProductsGroupByCategory
 
-class ProductsGroupByCategoryAdapter :
-    RecyclerView.Adapter<ProductsGroupByCategoryAdapter.ViewHolder>() {
+class ProductsGroupByCategoryAdapter : RecyclerView.Adapter<ProductsGroupByCategoryAdapter.ViewHolder>() {
     var listItems = listOf<ProductsGroupByCategory>()
+
     fun submitList(newList: List<ProductsGroupByCategory>) {
         listItems = newList
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(var binding: ItemCategoryRvProductItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        private val adapter = ProductListAdapter(itemView.context)
+    inner class ViewHolder(var binding: ItemCategoryRvProductItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        val adapter = ProductListAdapter(itemView.context)
         fun bind() {
 
             binding.rvListProduct.layoutManager = GridLayoutManager(itemView.context, 2)
@@ -38,7 +37,8 @@ class ProductsGroupByCategoryAdapter :
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemCategoryRvProductItemBinding.inflate(inflater)
 
-        binding.root.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        binding.root.layoutParams =
+            ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         return ViewHolder(binding)
     }
@@ -52,7 +52,7 @@ class ProductsGroupByCategoryAdapter :
         val wrapSpec: Int = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
         categoryName.measure(wrapSpec, wrapSpec)
 
-        categoryName.width = categoryName.measuredWidth + (categoryName.measuredWidth*0.4).toInt()
+        categoryName.width = categoryName.measuredWidth + (categoryName.measuredWidth * 0.4).toInt()
     }
 
     override fun getItemCount() = listItems.size

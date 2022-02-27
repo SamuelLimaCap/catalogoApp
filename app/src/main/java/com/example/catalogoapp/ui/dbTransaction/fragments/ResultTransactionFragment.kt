@@ -21,8 +21,7 @@ class ResultTransactionFragment : Fragment() {
     val args: ResultTransactionFragmentArgs by navArgs()
     val viewModel: DbTransactionViewModel by activityViewModels()
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentResultTransactionBinding.inflate(layoutInflater, container, false)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Result"
@@ -59,7 +58,8 @@ class ResultTransactionFragment : Fragment() {
         binding.resultText.setTextColor(greenColor)
         binding.backButton.setTextColor(greenColor)
         binding.backButton.backgroundTintList = resources.getColorStateList(R.color.green, null)
-        binding.backButton.background = ContextCompat.getDrawable(requireActivity(), R.drawable.green_button_border);
+        binding.backButton.background =
+            ContextCompat.getDrawable(requireActivity(), R.drawable.green_button_border);
         binding.moreInfoText.setText(resources.getText(R.string.no_description_transaction))
     }
 
@@ -70,11 +70,10 @@ class ResultTransactionFragment : Fragment() {
         binding.resultText.setTextColor(redColor)
         binding.backButton.setTextColor(redColor)
         binding.backButton.backgroundTintList = resources.getColorStateList(R.color.red, null)
-        binding.backButton.background = ContextCompat.getDrawable(requireActivity(), R.drawable.red_button_border);
+        binding.backButton.background =
+            ContextCompat.getDrawable(requireActivity(), R.drawable.red_button_border);
         binding.moreInfoText.setText(resources.getText(resourceTextId))
     }
-
-
 
 
 }

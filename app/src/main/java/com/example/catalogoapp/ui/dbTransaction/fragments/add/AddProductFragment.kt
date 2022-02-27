@@ -139,7 +139,8 @@ class AddProductFragment : Fragment() {
     private fun getProductFromInputs(): ProductEntity {
         val productName = binding.productNameInput.text.toString()
         val imageName = ProductUtil.createImageNamePlusOtherName(productName)
-        val productPrice = binding.productPriceInput.text.toString().toFloat()
+        val productPriceString = binding.productPriceInput.text.toString()
+        val productPrice = if (productPriceString.isEmpty()) 0.0F else productPriceString.toFloat()
         val categorySelected = binding.groupCategoriesSpinner.selectedItem.toString()
         val optionSelected = binding.groupOptionsSpinner.selectedItem.toString()
         return ProductEntity(

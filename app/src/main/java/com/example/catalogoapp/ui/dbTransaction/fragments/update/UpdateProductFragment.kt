@@ -52,8 +52,7 @@ class UpdateProductFragment : Fragment() {
     }
 
     private fun loadOptionsSpinner() {
-        ArrayAdapter.createFromResource(
-            this.requireContext(),
+        ArrayAdapter.createFromResource(this.requireContext(),
             R.array.spinner_group_options,
             android.R.layout.simple_spinner_dropdown_item).also { arrayAdapter ->
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -66,8 +65,7 @@ class UpdateProductFragment : Fragment() {
         lifecycleScope.launch {
             val spinnerItems = viewModel.listAllCategories().map { it -> it.category }.toList()
                 ?: emptyList<String>()
-            val arrayAdapter = ArrayAdapter(
-                requireActivity().applicationContext,
+            val arrayAdapter = ArrayAdapter(requireActivity().applicationContext,
                 android.R.layout.simple_spinner_dropdown_item,
                 spinnerItems)
             binding.groupCategoriesSpinner.adapter = arrayAdapter
@@ -105,7 +103,8 @@ class UpdateProductFragment : Fragment() {
     private fun navigateToTransactionFragment(isSuccess: Boolean, view: View) {
         val action =
             UpdateProductFragmentDirections.actionUpdateProductFragmentToTransactionFragment(
-                isSuccess, R.string.no_description_transaction)
+                isSuccess,
+                R.string.no_description_transaction)
         requireView().findNavController().navigate(action)
     }
 
@@ -129,11 +128,17 @@ class UpdateProductFragment : Fragment() {
     private fun getProductFromInputs(): ProductEntity {
         val productName = binding.productNameInput.text.toString()
         val imageName = atualProductEntity?.imageName ?: ""
-        val productPrice = binding.productPriceInput.text.toString().toFloat()
+
+        val productPriceString = binding.productPriceInput.text.toString()
+        val productPrice = if (productPriceString.isEmpty()) 0.0F else productPriceString.toFloat()
         val categorySelected = binding.groupCategoriesSpinner.selectedItem.toString()
         val optionSelected = binding.groupOptionsSpinner.selectedItem.toString()
-        return ProductEntity(
-            args.id, productName, productPrice, categorySelected, imageName, optionSelected)
+        return ProductEntity(args.id,
+            productName,
+            productPrice,
+            categorySelected,
+            imageName,
+            optionSelected)
     }
 
     private fun getProductIfExist() {
@@ -170,16 +175,14 @@ class UpdateProductFragment : Fragment() {
             productPriceInput.setText(productEntity.price.toString())
             groupCategoriesSpinner.setSelection(positionCategory)
             groupOptionsSpinner.setSelection(positionOption)
-            imagePreview.setImageBitmap(
-                FilesUtil.getImageBitmapFromCatalogoImages(
-                    productEntity.imageName, requireContext()))
+            imagePreview.setImageBitmap(FilesUtil.getImageBitmapFromCatalogoImages(productEntity.imageName,
+                requireContext()))
         }
     }
 
     private fun updateProductToBD() {
         val product = getProductFromInputs()
-        FilesUtil.savePhotoToInternalStorage(
-            requireContext(),
+        FilesUtil.savePhotoToInternalStorage(requireContext(),
             product.imageName,
             ImageResizer.getBitmapFromDrawable(binding.imagePreview.drawable))
         GlobalScope.launch { viewModel.updateProductOnBD(product) }
