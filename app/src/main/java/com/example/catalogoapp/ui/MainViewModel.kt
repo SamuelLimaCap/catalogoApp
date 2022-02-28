@@ -8,11 +8,11 @@ import com.example.catalogoapp.model.ProductEntity
 import com.example.catalogoapp.model.ProductsGroupByCategory
 import com.example.catalogoapp.repository.CatalogoRepository
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 class MainViewModel(
     val repository: CatalogoRepository
 ) : ViewModel() {
+
 
     private val productList: MutableLiveData<ProductEntity> = MutableLiveData()
 

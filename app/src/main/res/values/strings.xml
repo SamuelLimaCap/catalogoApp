@@ -49,4 +49,7 @@
     <string name="error_product_price_empty">Product price is empty</string>
 
     <string name="price_product_per_unit">R$ %1$s / %2$s</string>
+    <string name="label_close">Close</string>
+    <string name="label_successfully_exported">successfully exported</string>
+    <string name="label_already_exported">Sorry, but you already exported it</string>
 </resources>
