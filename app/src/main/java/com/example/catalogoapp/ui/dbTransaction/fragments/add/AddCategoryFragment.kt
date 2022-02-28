@@ -13,51 +13,58 @@ import com.example.catalogoapp.R
 import com.example.catalogoapp.model.CategoryEntity
 import com.example.catalogoapp.databinding.FragmentAddCategoryBinding
 import com.example.catalogoapp.model.Response
+import com.example.catalogoapp.model.exception.InvalidInputException
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 class AddCategoryFragment : Fragment() {
     private lateinit var binding: FragmentAddCategoryBinding
     private val viewModel: DbTransactionViewModel by activityViewModels()
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddCategoryBinding.inflate(inflater, container, false)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_add_category)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+            getString(R.string.title_add_category)
+
+        setOnClickAddCategoryButton()
+
+        return binding.root
+    }
+
+    private fun setOnClickAddCategoryButton() {
         binding.addCategoryButton.setOnClickListener {
             val categoryName = binding.categoryNameInput.text.toString()
             val response = checkInputContent(categoryName)
             var isSuccess = false
-            if (response.type) {
+            if (response.isSuccess) {
                 addCategory(categoryName)
                 isSuccess = true
-                navigateToTransactionFragment(isSuccess, it )
+                navigateToTransactionFragment(isSuccess, it)
             } else {
                 Toast.makeText(requireContext(), response.reason, Toast.LENGTH_LONG).show()
             }
 
         }
-
-        return binding.root
     }
 
     private fun addCategory(categoryName: String) {
-            viewModel.addCategoryToDB(CategoryEntity(category = categoryName))
+        viewModel.addCategoryToDB(CategoryEntity(category = categoryName))
     }
 
     private fun navigateToTransactionFragment(isSuccess: Boolean, view: View) {
-        val action =
-            AddCategoryFragmentDirections.actionAddCategoryFragmentToTransactionFragment(
-                isSuccess, R.string.no_description_transaction
-            )
+        val action = AddCategoryFragmentDirections.actionAddCategoryFragmentToTransactionFragment(
+            isSuccess, R.string.no_description_transaction)
         view.findNavController().navigate(action)
     }
 
     private fun checkInputContent(name: String): Response<Boolean> {
-        if (name.isEmpty() || name.isBlank()) return Response(false, getString(R.string.error_category_empty))
-        return Response(true, "")
+        try {
+            val category = CategoryEntity(name)
+            val response = viewModel.isCategoryContentValid(category)
+            return Response(response, "")
+        } catch (e: InvalidInputException) {
+            return Response(false, getString(e.resourceIdMessage))
+        }
     }
 }

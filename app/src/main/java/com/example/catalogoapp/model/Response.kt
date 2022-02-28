@@ -1,6 +1,6 @@
 package com.example.catalogoapp.model
 
 data class Response<T>(
-    val type: T,
+    val isSuccess: T,
     val reason: String
 )

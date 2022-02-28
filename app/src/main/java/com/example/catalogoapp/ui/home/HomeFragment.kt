@@ -23,18 +23,28 @@ class HomeFragment : Fragment() {
     private lateinit var binding: HomeFragmentBinding
     private val productsGroupByCategoryAdapter by lazy { ProductsGroupByCategoryAdapter() }
 
-    private val rotateOpen: Animation by lazy { AnimationUtils.loadAnimation(this.context, R.anim.rotate_open_anim) }
-    private val rotateClose: Animation by lazy { AnimationUtils.loadAnimation(this.context, R.anim.rotate_close_anim) }
-    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(this.context, R.anim.from_bottom_anim) }
-    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(this.context, R.anim.to_bottom_anim) }
+    private val rotateOpen: Animation by lazy {
+        AnimationUtils.loadAnimation(this.context, R.anim.rotate_open_anim)
+    }
+    private val rotateClose: Animation by lazy {
+        AnimationUtils.loadAnimation(this.context, R.anim.rotate_close_anim)
+    }
+    private val fromBottom: Animation by lazy {
+        AnimationUtils.loadAnimation(this.context, R.anim.from_bottom_anim)
+    }
+    private val toBottom: Animation by lazy {
+        AnimationUtils.loadAnimation(this.context, R.anim.to_bottom_anim)
+    }
     private var isFABbuttonActive: Boolean = false
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         binding = HomeFragmentBinding.inflate(inflater, container, false)
         val homeVMFactory = HomeVMFactory(CatalogoRepository(AppDatabase(requireContext())))
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_home)
         viewModel = ViewModelProvider(this, homeVMFactory)[HomeViewModel::class.java]
+
         init()
         setupRecyclerView()
         setupFABs()
@@ -53,6 +63,7 @@ class HomeFragment : Fragment() {
 
     private fun init() {
         isFABbuttonActive = false;
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.title_home)
     }
 
 
@@ -73,14 +84,14 @@ class HomeFragment : Fragment() {
 
         binding.fabAddFood.setOnClickListener {
             val intent = Intent(this.context, DbTransactionActivity::class.java)
-            intent.putExtra("type","add")
+            intent.putExtra("type", "add")
             intent.putExtra("entity", "product")
 
             startActivity(intent)
         }
         binding.fabAddCategory.setOnClickListener {
             val intent = Intent(this.context, DbTransactionActivity::class.java)
-            intent.putExtra("type","add")
+            intent.putExtra("type", "add")
             intent.putExtra("entity", "category")
 
             startActivity(intent)
@@ -96,18 +107,17 @@ class HomeFragment : Fragment() {
             binding.fabAdd.startAnimation(rotateClose)
         }
     }
-    private fun setSubFABsVisibility(isMainFABActive : Boolean) {
+
+    private fun setSubFABsVisibility(isMainFABActive: Boolean) {
         if (isMainFABActive) {
-            binding.fabAddFood.show()
             binding.fabAddCategory.show()
+            binding.fabAddFood.show()
         } else {
             binding.fabAddFood.hide()
             binding.fabAddCategory.hide()
-
         }
 
     }
-
 
 
 }

@@ -19,14 +19,5 @@
         android:id="@+id/exportFragment"
         android:name="com.example.catalogoapp.ui.export.ExportFragment"
         android:label="@string/export_string"
-        tools:layout="@layout/export_fragment" >
-        <action
-            android:id="@+id/action_exportFragment_to_exportPdfFragment"
-            app:destination="@id/exportPdfFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/exportPdfFragment"
-        android:name="com.example.catalogoapp.ui.export.SamplePdfExportFragment"
-        android:label="@string/export_string"
-        tools:layout="@layout/fragment_export_pdf" />
+        tools:layout="@layout/export_fragment" />
 </navigation>

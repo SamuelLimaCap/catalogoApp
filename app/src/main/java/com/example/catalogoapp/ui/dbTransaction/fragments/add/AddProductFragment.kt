@@ -1,10 +1,7 @@
 package com.example.catalogoapp.ui.dbTransaction.fragments.add
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,20 +18,21 @@ import com.example.catalogoapp.R
 import com.example.catalogoapp.databinding.FragmentAddProductBinding
 import com.example.catalogoapp.model.ProductEntity
 import com.example.catalogoapp.model.Response
+import com.example.catalogoapp.model.exception.InvalidInputException
 import com.example.catalogoapp.ui.dbTransaction.DbTransactionViewModel
+import com.example.catalogoapp.utils.Constants
 import com.example.catalogoapp.utils.FilesUtil
+import com.example.catalogoapp.utils.ImageResizer
 import com.example.catalogoapp.utils.ProductUtil
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class AddProductFragment : Fragment() {
 
     private lateinit var binding: FragmentAddProductBinding
     private val viewModel: DbTransactionViewModel by activityViewModels()
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentAddProductBinding.inflate(inflater, container, false)
         (requireActivity() as AppCompatActivity).supportActionBar?.title =
@@ -51,8 +49,7 @@ class AddProductFragment : Fragment() {
         ArrayAdapter.createFromResource(
             this.requireContext(),
             R.array.spinner_group_options,
-            android.R.layout.simple_spinner_dropdown_item
-        ).also { arrayAdapter ->
+            android.R.layout.simple_spinner_dropdown_item).also { arrayAdapter ->
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
             binding.groupOptionsSpinner.adapter = arrayAdapter
@@ -66,8 +63,7 @@ class AddProductFragment : Fragment() {
             val arrayAdapter = ArrayAdapter(
                 requireActivity().applicationContext,
                 android.R.layout.simple_spinner_dropdown_item,
-                spinnerItems
-            )
+                spinnerItems)
             binding.groupCategoriesSpinner.adapter = arrayAdapter
             if (spinnerItems.isEmpty()) {
                 binding.groupCategoriesSpinner.backgroundTintList =
@@ -84,16 +80,17 @@ class AddProductFragment : Fragment() {
         }
     }
 
-    private val takePhoto =
-        registerForActivityResult(ActivityResultContracts.GetContent()) {
-            binding.imagePreview.setImageURI(it)
-        }
+    private val takePhoto = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        var bitmap = MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, it)
+        bitmap = ImageResizer.reduceBitmapSize(bitmap, Constants.MAX_SIZE_IMAGE)
+        binding.imagePreview.setImageBitmap(bitmap)
+    }
 
     private fun setOnClickAddButton() {
         binding.addProductButton.setOnClickListener {
             val response = checkInputContent()
             var isSuccess = false
-            if (response.type) {
+            if (response.isSuccess) {
                 isSuccess = true
                 addProductToBD()
                 navigateToTransactionFragment(isSuccess, it)
@@ -105,21 +102,16 @@ class AddProductFragment : Fragment() {
 
     private fun checkInputContent(): Response<Boolean> {
         val response = try {
-            binding.apply {
-                if (groupOptionsSpinner.selectedItem.toString().isEmpty())
-                    throw Exception(getString(R.string.error_options_empty))
-                if (groupCategoriesSpinner.selectedItem == null)
-                    throw Exception(getString(R.string.error_add_category_before_add_product))
-                if (groupCategoriesSpinner.selectedItem.toString().isEmpty())
-                    throw Exception(getString(R.string.error_category_empty))
-                if (productNameInput.text.toString().isEmpty())
-                    throw Exception(getString(R.string.error_product_name_empty))
-                if (productPriceInput.text.toString().toFloat() < 0.0)
-                    throw Exception(getString(R.string.error_product_price_empty))
+            if (binding.groupCategoriesSpinner.selectedItem == null) {
+                throw InvalidInputException(R.string.error_add_category_before_add_product)
             }
+
+            val product = getProductFromInputs()
+            //Throws Exception
+            val isProductValid = viewModel.isProductContentValid(product)
             Response(true, "")
-        } catch (e: Exception) {
-            Response(false, e.message!!)
+        } catch (e: InvalidInputException) {
+            Response(false, getString(e.resourceIdMessage))
         }
 
         return response
@@ -127,38 +119,19 @@ class AddProductFragment : Fragment() {
 
     private fun addProductToBD() {
         val product = getProductFromInputs()
-        FilesUtil.savePhotoToInternalStorage(
-            requireContext(),
-            product.imageName,
-            getBitmapFromDrawable(binding.imagePreview.drawable)
-        )
-        GlobalScope.launch { viewModel.addProductToDB(product) }
-    }
-
-    private fun getBitmapFromDrawable(drawable: Drawable): Bitmap {
-        try {
-            //Throws ClassCastException if drawable doesn't inheres a BitmapDrawable, and, therefore, doesn't have a bitmap
-            return (drawable as BitmapDrawable).bitmap
-        } catch (e: ClassCastException) {
-            //Create a bitmap from drawable parsed
-            val bitmap = Bitmap.createBitmap(
-                drawable.intrinsicWidth,
-                drawable.intrinsicHeight,
-                Bitmap.Config.ARGB_8888
-            )
-            val canvas = Canvas(bitmap)
-            drawable.setBounds(0, 0, canvas.width, canvas.height)
-            drawable.draw(canvas)
-            return bitmap
+        GlobalScope.launch {
+            FilesUtil.savePhotoToInternalStorage(
+                requireContext(),
+                product.imageName,
+                ImageResizer.getBitmapFromDrawable(binding.imagePreview.drawable))
+            viewModel.addProductToDB(product)
         }
-    }
 
+    }
 
     private fun navigateToTransactionFragment(isSuccess: Boolean, view: View) {
-        val action =
-            AddProductFragmentDirections.actionAddProductFragmentToTransactionFragment(
-                isSuccess, R.string.no_description_transaction
-            )
+        val action = AddProductFragmentDirections.actionAddProductFragmentToTransactionFragment(
+            isSuccess, R.string.no_description_transaction)
         view.findNavController().navigate(action)
     }
 
@@ -166,17 +139,12 @@ class AddProductFragment : Fragment() {
     private fun getProductFromInputs(): ProductEntity {
         val productName = binding.productNameInput.text.toString()
         val imageName = ProductUtil.createImageNamePlusOtherName(productName)
-        val productPrice = binding.productPriceInput.text.toString().toFloat()
+        val productPriceString = binding.productPriceInput.text.toString()
+        val productPrice = if (productPriceString.isEmpty()) 0.0F else productPriceString.toFloat()
         val categorySelected = binding.groupCategoriesSpinner.selectedItem.toString()
         val optionSelected = binding.groupOptionsSpinner.selectedItem.toString()
         return ProductEntity(
-            0,
-            productName,
-            productPrice,
-            categorySelected,
-            imageName,
-            optionSelected
-        )
+            0, productName, productPrice, categorySelected, imageName, optionSelected)
     }
 
 

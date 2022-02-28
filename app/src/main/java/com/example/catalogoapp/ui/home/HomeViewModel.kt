@@ -7,25 +7,27 @@ import com.example.catalogoapp.model.CategoryEntity
 import com.example.catalogoapp.model.ProductEntity
 import com.example.catalogoapp.model.ProductsGroupByCategory
 import com.example.catalogoapp.repository.CatalogoRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
     val repository: CatalogoRepository
-): ViewModel() {
+) : ViewModel() {
     val listProductsGroupByCategory = MutableLiveData<List<ProductsGroupByCategory>>()
     val listCategories = MutableLiveData<List<CategoryEntity>>()
+
     init {
         getListProductsByCategory()
     }
 
-     fun getListProductsByCategory() {
-        viewModelScope.launch {
+    fun getListProductsByCategory() {
+        viewModelScope.launch(Dispatchers.IO) {
             listProductsGroupByCategory.postValue(repository.getProductsGroupByCategory())
         }
     }
 
     fun getListCategories() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             listCategories.postValue(repository.getAllCategories())
         }
     }

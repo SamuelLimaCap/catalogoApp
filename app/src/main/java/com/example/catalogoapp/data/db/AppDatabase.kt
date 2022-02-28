@@ -34,5 +34,4 @@ abstract class AppDatabase : RoomDatabase() {
                 "catalogo_db.db"
             ).build()
     }
-
 }

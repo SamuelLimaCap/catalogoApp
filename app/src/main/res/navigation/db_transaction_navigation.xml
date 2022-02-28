@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/emptyFragment"
         android:name="com.example.catalogoapp.ui.dbTransaction.fragments.EmptyFragment"
-        android:label="fragment_empty"
+        android:label="Loading transaction"
         tools:layout="@layout/fragment_empty" >
         <action
             android:id="@+id/action_emptyFragment_to_productTransactionFragment"

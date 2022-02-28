@@ -44,4 +44,8 @@ interface CatalogoDao {
     @Query("SELECT * FROM category")
     suspend fun getAllCategories() : List<CategoryEntity>
 
+    @MapInfo(keyColumn = "categoryName", valueColumn = "count")
+    @Query("SELECT categoryName, count(categoryName) as `count` FROM product WHERE categoryName IN (:categoryList) group by categoryName")
+    suspend fun getCountByCategoryList(categoryList: List<String>) : Map<String, Int>
+
 }
