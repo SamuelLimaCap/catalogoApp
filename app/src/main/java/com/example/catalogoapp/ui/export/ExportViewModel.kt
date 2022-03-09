@@ -24,11 +24,11 @@ class ExportViewModel(
         viewModelScope.launch { listCategory.postValue(repository.getAllCategories()); println(listCategory.value) }
 
     }
-    fun getProductsGroupByCategories(listCategory: List<String>) {
+    fun getProductsGroupByCategories(listCategory: List<CategoryEntity>) {
         viewModelScope.launch {
             val list: MutableList<ProductsGroupByCategory> = mutableListOf()
             for (category in listCategory) {
-                val products = repository.getAllProductsByCategory(category)
+                val products = repository.getAllProductsByCategory(category.category)
                 val productsGroupByCategory = ProductsGroupByCategory(category, products)
                 list.add(productsGroupByCategory)
             }

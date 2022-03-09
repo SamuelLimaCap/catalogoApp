@@ -38,11 +38,14 @@ interface CatalogoDao {
     @Query("UPDATE category SET category = :newCategoryName WHERE category = :oldCategoryName")
     suspend fun updateCategory(oldCategoryName: String, newCategoryName: String)
 
-    @Query("DELETE FROM category WHERE category = :categoryName")
+    @Query("DELETE FROM category WHERE category.category = :categoryName")
     suspend fun deleteCategory(categoryName: String)
 
     @Query("SELECT * FROM category")
     suspend fun getAllCategories() : List<CategoryEntity>
+
+    @Query("SELECT * FROM category WHERE category.category = :categoryName")
+    suspend fun getCategoryByName(categoryName: String) : CategoryEntity
 
     @MapInfo(keyColumn = "categoryName", valueColumn = "count")
     @Query("SELECT categoryName, count(categoryName) as `count` FROM product WHERE categoryName IN (:categoryList) group by categoryName")

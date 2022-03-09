@@ -46,7 +46,7 @@ class ProductsGroupByCategoryAdapter : RecyclerView.Adapter<ProductsGroupByCateg
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind()
         holder.submitList(listItems[position].productList)
-        holder.binding.categoryName.text = listItems[position].category
+        holder.binding.categoryName.text = listItems[position].category.category
         val categoryName = holder.binding.categoryName
 
         val wrapSpec: Int = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)

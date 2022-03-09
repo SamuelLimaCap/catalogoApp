@@ -28,11 +28,11 @@ class MainViewModel(
 
     }
 
-    fun getProductsGroupByCategories(listCategory: List<String>) {
+    fun getProductsGroupByCategories(listCategory: List<CategoryEntity>) {
         viewModelScope.launch {
             val list: MutableList<ProductsGroupByCategory> = mutableListOf()
             for (category in listCategory) {
-                val products = repository.getAllProductsByCategory(category)
+                val products = repository.getAllProductsByCategory(category.category)
                 val productsGroupByCategory = ProductsGroupByCategory(category, products)
                 list.add(productsGroupByCategory)
             }
@@ -52,7 +52,7 @@ class MainViewModel(
         viewModelScope.launch {
             val list: MutableList<String> = mutableListOf()
             listProductsByCategory.value?.forEach {
-                list.add(it.category)
+                list.add(it.category.category)
             }
             mapCategoryCountProduct.postValue(repository.getCountByListCategory(list))
         }

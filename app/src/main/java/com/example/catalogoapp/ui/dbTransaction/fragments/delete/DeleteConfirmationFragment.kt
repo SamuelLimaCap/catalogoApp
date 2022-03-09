@@ -43,7 +43,7 @@ class DeleteConfirmationFragment : Fragment() {
                     isSuccess = true
                 }
                 "category" -> {
-                    viewModel.deleteCategory(CategoryEntity(args.name))
+                    viewModel.deleteCategory(CategoryEntity(args.name, 0))
                     isSuccess = true
                 }
             }

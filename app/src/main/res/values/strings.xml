@@ -17,6 +17,32 @@
         <item>Kg</item>
     </string-array>
 
+    <!-- DON'T modify the items order -->
+    <!-- If you need to add MORE COLORS,
+        check the string-array "spinner_color_values"
+        AND check the colors.xml on "category colors" annotation-->
+    <string-array name="spinner_colors">
+        <item>pink</item> <!-- eb0cbd  ou e50074 -->
+        <item>orange</item> <!-- ffa200 ou f97a00 -->
+        <item>light blue</item> <!-- 1eaef5 -->
+        <item>dark blue</item> <!-- 2965d4 -->
+        <item>light purple</item> <!-- ae67ff -->
+        <item>purple</item> <!-- 9840fb -->
+        <item>dark purple</item> <!-- 7528cb -->
+        <item>dark orange</item> <!-- c9a160 -->
+    </string-array>
+
+    <string-array name="spinner_colors_values" translatable="false">
+        <item>category_pink</item> <!-- eb0cbd  ou e50074 -->
+        <item>category_orange</item> <!-- ffa200 ou f97a00 -->
+        <item>category_light_blue</item> <!-- 1eaef5 -->
+        <item>category_dark_blue</item> <!-- 2965d4 -->
+        <item>category_light_purple</item> <!-- ae67ff -->
+        <item>category_purple</item> <!-- 9840fb -->
+        <item>category_dark_purple</item> <!-- 7528cb -->
+        <item>category_dark_orange</item> <!-- c9a160 -->
+    </string-array>
+
     <string name="title_home">Home</string>
     <string name="title_export">Export</string>
     <string name="title_category">Categories</string>
@@ -52,4 +78,8 @@
     <string name="label_close">Close</string>
     <string name="label_successfully_exported">successfully exported</string>
     <string name="label_already_exported">Sorry, but you already exported it</string>
+    <string name="label_unique_price">Unique price</string>
+    <string name="label_add_taste">add taste</string>
+    <string name="hint_price_x">price </string>
+    <string name="hint_taste_x">taste </string>
 </resources>

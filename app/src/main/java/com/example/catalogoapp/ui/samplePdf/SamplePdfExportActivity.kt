@@ -16,12 +16,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.catalogoapp.R
 import com.example.catalogoapp.data.db.AppDatabase
 import com.example.catalogoapp.databinding.FragmentExportPdfBinding
 import com.example.catalogoapp.model.ProductsGroupByCategory
 import com.example.catalogoapp.repository.CatalogoRepository
 import com.example.catalogoapp.ui.adapters.ProductsGroupByCategoryAdapter
+import com.example.catalogoapp.ui.adapters.export.ExportLayoutAdapter
 import com.example.catalogoapp.utils.ExportToPdf
 import com.example.catalogoapp.utils.FilesUtil
 import com.example.catalogoapp.utils.NotifyingLinearLayoutManager
@@ -35,7 +37,7 @@ class SamplePdfExportActivity : AppCompatActivity() {
     private lateinit var binding: FragmentExportPdfBinding
     private lateinit var viewModel: SamplePdfExportViewModel
     private lateinit var listToExport: MutableList<ProductsGroupByCategory>
-    private val newRvAdapter by lazy { ProductsGroupByCategoryAdapter() }
+    private val newRvAdapter by lazy { ExportLayoutAdapter() }
     private lateinit var layoutManager: NotifyingLinearLayoutManager
     private lateinit var file: File
     private lateinit var exportToPdfDocument: ExportToPdf
@@ -51,11 +53,15 @@ class SamplePdfExportActivity : AppCompatActivity() {
         val categories: ArrayList<String> = intent.getSerializableExtra("categoryList") as ArrayList<String>
 
         init()
+        viewModel.listCategory.observe(this){
+            viewModel.getProductsGroupByCategories(it)
+        }
+
         setupObserver()
         setupRecyclerView()
         setConfirmButton()
 
-        viewModel.getProductsGroupByCategories(categories.toList())
+        viewModel.getCategoryList(categories)
 
     }
 

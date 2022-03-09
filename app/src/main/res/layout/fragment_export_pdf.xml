@@ -10,7 +10,7 @@
        android:id="@+id/id_to_export"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       tools:listitem="@layout/item_category_rv_product_item"
+       tools:listitem="@layout/row_export_layout"
        app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintLeft_toLeftOf="parent"
        app:layout_constraintRight_toRightOf="parent"

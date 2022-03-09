@@ -36,7 +36,8 @@ class CatalogoRepository(
         if (stringList.isNotEmpty()) map.put(stringList.last(), listProducts.toList())
         listProducts.clear()
 
-        for ((category, list) in map) {
+        for ((categoryName, list) in map) {
+            val category = db.getCatalogoDao().getCategoryByName(categoryName)
             listGrouped.add(ProductsGroupByCategory(category, list))
         }
 
@@ -56,6 +57,8 @@ class CatalogoRepository(
     suspend fun deleteCategory(category: CategoryEntity) = db.getCatalogoDao().deleteCategory(category.category)
 
     suspend fun getAllCategories() = db.getCatalogoDao().getAllCategories()
+
+    suspend fun getCategoryByName(categoryName: String) = db.getCatalogoDao().getCategoryByName(categoryName)
 
     suspend fun clearAllTables() = db.clearAllTables()
 

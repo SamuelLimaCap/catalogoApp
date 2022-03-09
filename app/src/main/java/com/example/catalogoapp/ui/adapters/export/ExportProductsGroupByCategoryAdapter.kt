@@ -22,7 +22,7 @@ class ExportProductsGroupByCategoryAdapter :
 
     override fun onBindViewHolder(holder: ProductsGroupCategoryViewHolder, position: Int) {
         if (position==0) {
-            holder.binding.categoryName.text = list[position].category
+            holder.binding.categoryName.text = list[position].category.category
             holder.binding.rvListProduct
         }
     }

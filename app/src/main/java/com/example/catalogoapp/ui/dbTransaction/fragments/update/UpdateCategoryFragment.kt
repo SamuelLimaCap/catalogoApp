@@ -51,9 +51,9 @@ class UpdateCategoryFragment : Fragment() {
 
     }
 
-    private fun checkInputContent(name: String): Response<Boolean> {
+    private fun checkInputContent(name: String, color: Int = 0): Response<Boolean> {
         try {
-            val category = CategoryEntity(name)
+            val category = CategoryEntity(name, color)
             val response = viewModel.isCategoryContentValid(category)
             return Response(response, "")
         } catch (e: InvalidInputException) {

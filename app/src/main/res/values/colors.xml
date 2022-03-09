@@ -11,4 +11,16 @@
     <color name="green">#4CAF50</color>
     <color name="red">#F44336</color>
     <color name="orange">#FF9800</color>
+
+    <!-- category colors -->
+    <!-- if you change something, don't forget to update "spinner_color_values" on  string.xml -->
+    <color name="category_pink">#eb0cbd</color>
+    <color name="category_orange">#ffa200</color>
+    <color name="category_light_blue">#1eaef5</color>
+    <color name="category_dark_blue">#2965d4</color>
+    <color name="category_light_purple">#ae67ff</color>
+    <color name="category_purple">#9840fb</color>
+    <color name="category_dark_purple">#7528cb</color>
+    <color name="category_dark_orange">#c9a160</color>
+
 </resources>

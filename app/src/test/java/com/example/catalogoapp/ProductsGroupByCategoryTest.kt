@@ -1,5 +1,6 @@
 package com.example.catalogoapp
 
+import com.example.catalogoapp.model.CategoryEntity
 import com.example.catalogoapp.model.ProductEntity
 import com.example.catalogoapp.model.ProductsGroupByCategory
 import com.example.catalogoapp.utils.ProductsGroupByCategoryUtils
@@ -14,7 +15,7 @@ class ProductsGroupByCategoryTest {
 
     @Before
     fun setup() {
-        list = ProductsGroupByCategory("test",
+        list = ProductsGroupByCategory(CategoryEntity("test",0),
             listOf(ProductEntity(0, "t1", 0.0F, "c1", "c1", "c1"),
                 ProductEntity(0, "t1", 0.0F, "c1", "c1", "c1"),
                 ProductEntity(0, "t1", 0.0F, "c1", "c1", "c1"),
@@ -24,12 +25,12 @@ class ProductsGroupByCategoryTest {
                 ProductEntity(0, "t1", 0.0F, "c1", "c1", "c1")))
 
         expectedList = listOf<ProductsGroupByCategory>(
-            ProductsGroupByCategory("test",
+            ProductsGroupByCategory(CategoryEntity("test",0),
                 listOf(ProductEntity(0, "t1", 0.0F, "c1", "c1", "c1"),
                     ProductEntity(0, "t1", 0.0F, "c1", "c1", "c1"),
                     ProductEntity(0, "t1", 0.0F, "c1", "c1", "c1"),
                     ProductEntity(0, "t1", 0.0F, "c1", "c1", "c1"))),
-            ProductsGroupByCategory("",
+            ProductsGroupByCategory(CategoryEntity("test",0),
                 listOf(ProductEntity(0, "t1", 0.0F, "c1", "c1", "c1"),
                     ProductEntity(0, "t1", 0.0F, "c1", "c1", "c1"),
                     ProductEntity(0, "t1", 0.0F, "c1", "c1", "c1")))

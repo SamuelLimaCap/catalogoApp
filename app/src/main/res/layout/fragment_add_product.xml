@@ -9,61 +9,124 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/product_name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:hint="@string/product_name_hint"
-            android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/food_icon">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/product_price_input"
-            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:hint="@string/product_price_hint"
-            android:inputType="numberDecimal"
-            app:layout_constraintTop_toBottomOf="@+id/product_name_input"
-            tools:layout_editor_absoluteX="0dp" />
-
-        <TextView
-            android:id="@+id/text_options"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/options_text"
+            app:layout_constraintEnd_toStartOf="@id/switch_unique_price"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/product_price_input" />
+            app:layout_constraintTop_toBottomOf="@id/product_name_input">
 
-        <TextView
-            android:id="@+id/text_categories"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_unique_price"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="16dp"
-            android:text="@string/categories_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/group_options_spinner" />
+            android:checked="true"
+            android:text="@string/label_unique_price"
+            app:layout_constraintBottom_toBottomOf="@id/product_price_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="0.5"
+            app:layout_constraintStart_toEndOf="@id/product_price_input"
+            app:layout_constraintTop_toTopOf="@id/product_price_input" />
 
-        <Spinner
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/group_options_spinner"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/text_options"
-            tools:layout_editor_absoluteX="2dp" />
+            android:hint="@string/options_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/product_price_input">
 
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="none" />
 
-        <Spinner
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/group_categories_spinner"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/text_categories"
-            tools:layout_editor_absoluteX="0dp" />
+            android:hint="@string/categories_text"
+            app:errorEnabled="true"
+            app:errorTextColor="@color/red"
+            app:layout_constraintTop_toBottomOf="@id/group_options_spinner">
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_taste_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_taste_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_tastes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="36dp"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/group_categories_spinner"
+            tools:listitem="@layout/row_input_product_tastes"
+            tools:itemCount="2"
+            android:background="@drawable/bg_full_colored"
+            android:backgroundTint="@color/purple_200"
+            >
+            <!-- It's populated with row_input_product_tastes.xml-->
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/btn_add_taste"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_add_taste"
+            app:layout_constraintEnd_toEndOf="@id/rv_tastes"
+            app:layout_constraintTop_toBottomOf="@id/rv_tastes"
+            />
 
         <ImageView
             android:id="@+id/image_preview"
@@ -75,7 +138,7 @@
             android:src="@drawable/take_photo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/group_categories_spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_add_taste" />
 
         <Button
             android:id="@+id/add_product_button"

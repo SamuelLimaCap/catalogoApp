@@ -13,17 +13,33 @@ class SamplePdfExportViewModel(val repository: CatalogoRepository) : ViewModel()
     val listCategory = MutableLiveData<List<CategoryEntity>>()
     val listProductsByCategory = MutableLiveData<List<ProductsGroupByCategory>>()
 
-    fun getProductsGroupByCategories(listCategory: List<String>) {
+    fun getProductsGroupByCategories(listCategory: List<CategoryEntity>) {
         viewModelScope.launch {
             val list: MutableList<ProductsGroupByCategory> = mutableListOf()
             for (category in listCategory) {
-                val products = repository.getAllProductsByCategory(category)
+                val products = repository.getAllProductsByCategory(category.category)
                 val productsGroupByCategory = ProductsGroupByCategory(category, products)
                 list.add(productsGroupByCategory)
             }
             listProductsByCategory.postValue(list.toList())
 
             return@launch
+        }
+    }
+
+    fun getCategoryList(categoryNamelist: List<String>) {
+        viewModelScope.launch {
+            val list = mutableListOf<CategoryEntity>()
+            categoryNamelist.forEach {
+                repository.getCategoryByName(it).also { list.add(it) }
+            }
+            listCategory.postValue(list)
+        }
+    }
+
+    fun getCategoryByName(categoryName: String) {
+        viewModelScope.launch {
+            repository.getCategoryByName(categoryName)
         }
     }
 
